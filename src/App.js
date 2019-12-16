@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Square from './components/square.component';
 
-function App() {
+
+
+export default class App extends Component{
+
+constructor() {
+  super();
+  this.state = { testVar:""};
+  this.clickMe = this.clickMe.bind(this);
+  this.onObjectDragged = this.onObjectDragged.bind(this);
+
+
+}
+
+clickMe() {
+
+  this.setState(state => ({
+    testVar: "Dude where is my car"
+  }));
+
+  console.log("Clicked");
+
+}
+
+
+onObjectDragged(){
+
+  console.log("Object Dragged");
+
+}
+
+
+render() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Square clickMe={this.clickMe} onObjectDragged = {this.onObjectDragged}/>
+      <h2>{this.state.testVar}</h2>
     </div>
   );
 }
 
-export default App;
+}
