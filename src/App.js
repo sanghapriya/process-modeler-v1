@@ -10,15 +10,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export default class App extends Component{
 
 constructor() {
-  super();
-  this.state = { elements:[]
-                };
-  this.clickMe = this.clickMe.bind(this);
-  this.onObjectDragged = this.onObjectDragged.bind(this);
-  this.onObjectDragEnd = this.onObjectDragEnd.bind(this);
-  this.onMenuObjectDragEnd = this.onMenuObjectDragEnd.bind(this);
-
-
+        super();
+        this.state = { elements:[],
+                       elementId:0,
+                       elementDetails:[]
+                      };
+        this.clickMe = this.clickMe.bind(this);
+        this.onObjectDragged = this.onObjectDragged.bind(this);
+        this.onObjectDragEnd = this.onObjectDragEnd.bind(this);
+        this.onMenuObjectDragEnd = this.onMenuObjectDragEnd.bind(this);
 }
 
 clickMe() {
@@ -32,25 +32,48 @@ clickMe() {
 }
 
 
-onObjectDragged(){
+onObjectDragged(e,id){
 
-  console.log("Object Dragged");
+  console.log("Object Dragged"+id);
+  this.setState({})
 
 }
 
 
 onMenuObjectDragEnd(e){
 
-        this.setState({
-                        elements:
-                          <Square   pos1={-1*e.clientX}
-                                    pos2= {-1*e.clientY}
-                                    pos3={e.clientX}
-                                    pos4={e.clientY}
-                                    top={e.clientY}
-                                    left={e.clientX }/>
+      var elements = this.state.elements;
+      var elementDetails = this.state.elementDetails;
+      // var elementId = this.state.elementId;
+      elements.push(
+                    <div draggable onDragEnd={(e) => this.onObjectDragged(e,this.state.elementId)} key = {this.state.elementId+1}>
+                            <Square
+                                id = {this.state.elementId+1}
+                                pos1={-1*e.clientX}
+                                pos2= {-1*e.clientY}
+                                pos3={e.clientX}
+                                pos4={e.clientY}
+                                top={e.clientY}
+                                left={e.clientX}
+                                />
+                      </div>
+                  );
 
-        });
+       elementDetails.push({
+                              pos1:-1*e.clientX,
+                              pos2: -1*e.clientY,
+                              pos3:e.clientX,
+                              pos4:e.clientY,
+                              top:e.clientY,
+                              left:e.clientX,
+                            });
+
+
+        this.setState({
+                        elementId:this.state.elementId+1,
+                        elements:elements,
+                        elementDetails: elementDetails
+                        });
 
 
         console.log(this.state)
@@ -58,16 +81,20 @@ onMenuObjectDragEnd(e){
 
         }
 
-onObjectDragEnd(e){
-        this.setState({
-                  pos1 :this.state.pos3 - e.clientX,
-                  pos2 :this.state.pos4 - e.clientY,
-                  pos3 :e.clientX,
-                  pos4 :e.clientY,
-                  top: ( this.state.top -(this.state.pos4 - e.clientY)),
-                  left:(this.state.left -(this.state.pos3 - e.clientX)) });
+onObjectDragEnd(e,id){
 
-        console.log(this.state)
+        console.log(id);
+
+        //
+        // this.setState({
+        //           pos1 :this.state.pos3 - e.clientX,
+        //           pos2 :this.state.pos4 - e.clientY,
+        //           pos3 :e.clientX,
+        //           pos4 :e.clientY,
+        //           top: ( this.state.top -(this.state.pos4 - e.clientY)),
+        //           left:(this.state.left -(this.state.pos3 - e.clientX)) });
+        //
+        // console.log(this.state)
 
         }
 
@@ -86,7 +113,7 @@ render() {
       <Dropdown.Item draggable>Diamond</Dropdown.Item>
     </Dropdown.Menu>
   </Dropdown>
-      {this.state.elements}
+      {this.state.elements.map((element) => element)}
       </div>
   );
 }

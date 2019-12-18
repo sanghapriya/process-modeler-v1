@@ -6,9 +6,6 @@ export default class Square extends Component {
   super(props);
   this.state=
               {
-                clickMe: props.clickMe,
-                onObjectDragged: props.onObjectDragged,
-                onObjectDragEnd: props.onObjectDragEnd,
                 pos1:props.pos1,
                 pos2:props.pos2,
                 pos3:props.pos3,
@@ -42,10 +39,7 @@ render() {
                       top: this.state.top+"px",
                       left: this.state.left+"px"
                     }}
-        draggable
-        onClick = {this.state.clickMe}
-        onDrag = {this.state.onObjectDragged}
-        onDragEnd = {this.state.onObjectDragEnd}>
+        draggable>
 
 
     <div style = {{
