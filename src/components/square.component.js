@@ -2,29 +2,15 @@ import React, { Component } from 'react';
 
 export default class Square extends Component {
 
-  constructor(props) {
-  super(props);
-  this.state=
-              {
-                pos1:props.pos1,
-                pos2:props.pos2,
-                pos3:props.pos3,
-                pos4:props.pos4,
-                top:props.top,
-                left:props.left
 
-              };
-
-
+constructor(props){
+  super(props)
+  this.state ={
+                id: props.id,
+                top : props.top,
+                left: props.left};
 
 }
-
-
-componentDidMount() {}
-
-
-
-
 
 render() {
   return (
@@ -50,7 +36,7 @@ render() {
                    color: "#fff"}}>
 
 
-          Hello There!!!
+          Hello There!!! {this.state.id}
       </div>
       <p> Lets see if you can move me!</p>
     </div>
