@@ -1,11 +1,11 @@
 import React from 'react';
-import Square from '../components/square.component';
+import GenericElement from '../components/genericElement.component';
 import {CREATE,MOVE} from '../actions';
 
 
 const initialState = {latestElementId:0,elements:[],elementDetails:[]};
 
-function createElementReducer(state = initialState,action) {
+function manageElementReducer(state = initialState,action) {
 
           switch(action.type){
 
@@ -13,7 +13,7 @@ function createElementReducer(state = initialState,action) {
                     var latestElementId = state.latestElementId;
                     // var elements = state.elements===undefined?[]:state.elements;
                     // var elementDetails = state.elementDetails===undefined?[]:state.elementDetails;
-                    var elements = <Square          key = { latestElementId+1}
+                    var elements = <GenericElement          key = { latestElementId+1}
                                                     id ={ latestElementId+1}
                                                     pos1={-1*action.e.clientX}
                                                     pos2= {-1*action.e.clientY}
@@ -24,12 +24,12 @@ function createElementReducer(state = initialState,action) {
                                                     />;
 
                     var elementDetails = {
-                                                           pos1:-1*action.e.clientX,
-                                                           pos2: -1*action.e.clientY,
-                                                           pos3:action.e.clientX,
-                                                           pos4:action.e.clientY,
-                                                           top:action.e.clientY,
-                                                           left:action.e.clientX,};
+                                                     pos1:-1*action.e.clientX,
+                                                     pos2: -1*action.e.clientY,
+                                                     pos3:action.e.clientX,
+                                                     pos4:action.e.clientY,
+                                                     top:action.e.clientY,
+                                                     left:action.e.clientX,};
 
 
 
@@ -52,7 +52,7 @@ function createElementReducer(state = initialState,action) {
                              latestElementId:state.latestElementId,
                              elements:state.elements
                                             .map((element,index) => (index === id-1?
-                                                                    <Square key = {id}
+                                                                    <GenericElement key = {id}
                                                                      id ={id}
                                                                      top={top}
                                                                      left={left}
@@ -80,4 +80,4 @@ function createElementReducer(state = initialState,action) {
 }
 
 
-export default createElementReducer;
+export default manageElementReducer;

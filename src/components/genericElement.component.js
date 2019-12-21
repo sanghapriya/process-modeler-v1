@@ -2,14 +2,9 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {moveElement} from '../actions';
 
-
-
-
-
-
 // export default class Square extends Component {
 
-  export default function Square (props)  {
+  export default function GenericElement (props)  {
     var id = props.id;
 
     const dispatch = useDispatch();
@@ -42,23 +37,3 @@ import {moveElement} from '../actions';
         </div>
       )
   }
-
-
-// constructor(props){
-//   super(props)
-//   this.state ={
-//                 id: props.id,
-//                 top : props.top,
-//                 left: props.left};
-//
-// }
-//
-// render() {
-//
-//   var id = this.state.id;
-//   return (
-//
-//
-// )}
-//
-//   }

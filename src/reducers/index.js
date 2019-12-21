@@ -1,9 +1,9 @@
 import { combineReducers} from 'redux';
-import  createElementReducer from './createElement';
+import  manageElementReducer from './manageElement';
 import testReduxReducer from './testRedux';
 
 const combinedReducers = combineReducers({
-  createElement: createElementReducer,
+  manageElement: manageElementReducer,
   testRedux:   testReduxReducer
 });
 
