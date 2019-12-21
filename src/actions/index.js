@@ -8,8 +8,10 @@ export function createElement(e) {
 }
 
 
-export function moveElement(e) {
-  return { type: MOVE, e }
+export function moveElement(e,id) {
+  return { type: MOVE,
+            e,id
+          }
 }
 
 

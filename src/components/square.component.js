@@ -1,45 +1,64 @@
-import React, { Component } from 'react';
-
-export default class Square extends Component {
-
-
-constructor(props){
-  super(props)
-  this.state ={
-                id: props.id,
-                top : props.top,
-                left: props.left};
-
-}
-
-render() {
-  return (
-
-    <div style = {{
-
-                      position: "absolute",
-                      zIndex: 9,
-                      backgroundColor: "#f1f1f1",
-                      textAlign: "center",
-                      border: "1px solid #d3d3d3",
-                      top: this.state.top+"px",
-                      left: this.state.left+"px"
-                    }}
-        draggable>
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {moveElement} from '../actions';
 
 
-    <div style = {{
-                   padding: "10px",
-                   cursor: "move",
-                   zIndex: 10,
-                   backgroundColor: "#2196F3",
-                   color: "#fff"}}>
 
 
-          Hello There!!! {this.state.id}
-      </div>
-      <p> Lets see if you can move me!</p>
-    </div>
-)}
 
+
+// export default class Square extends Component {
+
+  export default function Square (props)  {
+    var id = props.id;
+
+    const dispatch = useDispatch();
+      return(
+        <div style = {{
+
+                          position: "absolute",
+                          zIndex: 9,
+                          backgroundColor: "#f1f1f1",
+                          textAlign: "center",
+                          border: "1px solid #d3d3d3",
+                          top: props.top+"px",
+                          left: props.left+"px"
+                        }}
+            draggable
+            onDragEnd={(e)=>dispatch(moveElement(e,id))}>
+
+
+        <div style = {{
+                       padding: "10px",
+                       cursor: "move",
+                       zIndex: 10,
+                       backgroundColor: "#2196F3",
+                       color: "#fff"}}>
+
+
+              Hello There!!! {id}
+          </div>
+          <p> Lets see if you can move me!</p>
+        </div>
+      )
   }
+
+
+// constructor(props){
+//   super(props)
+//   this.state ={
+//                 id: props.id,
+//                 top : props.top,
+//                 left: props.left};
+//
+// }
+//
+// render() {
+//
+//   var id = this.state.id;
+//   return (
+//
+//
+// )}
+//
+//   }
