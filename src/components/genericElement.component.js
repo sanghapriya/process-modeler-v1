@@ -1,39 +1,101 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {moveElement} from '../actions';
+import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
-// export default class Square extends Component {
+
+  const getStyle = (elementType,top,left) => {
+
+                    switch(elementType) {
+
+                      case ACTIVITY:
+
+                              return {
+
+                                "height": "100px",
+                                "width": "100px",
+                                "position": "absolute",
+                                "zIndex": 9,
+                                "backgroundColor": "#f1f1f1",
+                                "textAlign": "center",
+                                "border": "1px solid #d3d3d3",
+                                "top": top+"px",
+                                "left": left+"px",
+                                "cursor": "move",
+                                "display": "inline-block",
+                                              
+                              };
+
+                      case EVENT:
+                              
+                        return {
+
+                          "height": "100px",
+                          "width": "100px",
+                          "position": "absolute",
+                          "backgroundColor": "#f1f1f1",
+                          "borderRadius": "50%",
+                          "textAlign": "center",
+                          "top": top+"px",
+                          "left": left+"px",
+                          "cursor": "move",
+                          "display": "inline-block",
+                          
+                          };
+                      
+                      case GATEWAY:
+
+                        return {
+
+                          "height": "100px",
+                          "width": "100px",
+                          "position": "absolute",
+                          "backgroundColor": "#f1f1f1",
+                          "top": top+"px",
+                          "left": left+"px",
+                          "cursor": "move",
+                          "transform": "rotate(45deg)"
+                          
+                          };
+                      default:
+
+                              return {
+
+                                "height": "100px",
+                                "width": "100px",
+                                "position": "absolute",
+                                "zIndex": 9,
+                                "backgroundColor": "#f1f1f1",
+                                "textAlign": "center",
+                                "border": "1px solid #d3d3d3",
+                                "top": top+"px",
+                                "left": left+"px",
+                                "cursor": "move",
+                                
+                                };
+
+
+
+                      }
+                }
+
+
+
+
 
   export default function GenericElement (props)  {
-    var id = props.id;
-
+    const id = props.id;
     const dispatch = useDispatch();
+    const elementType = props.elementType;
+
+    
       return(
-        <div style = {{
-
-                          position: "absolute",
-                          zIndex: 9,
-                          backgroundColor: "#f1f1f1",
-                          textAlign: "center",
-                          border: "1px solid #d3d3d3",
-                          top: props.top+"px",
-                          left: props.left+"px"
-                        }}
+        <div style = {getStyle(elementType,props.top,props.left)}
             draggable
-            onDragEnd={(e)=>dispatch(moveElement(e,id))}>
+            onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}>
 
 
-        <div style = {{
-                       padding: "10px",
-                       cursor: "move",
-                       zIndex: 10,
-                       backgroundColor: "#2196F3",
-                       color: "#fff"}}>
-
-
-              Hello There!!! {id}
-          </div>
-          <p> Lets see if you can move me!</p>
+          <p> {elementType}: {id} </p>
         </div>
       )
   }

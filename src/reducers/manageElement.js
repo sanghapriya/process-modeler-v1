@@ -21,6 +21,7 @@ function manageElementReducer(state = initialState,action) {
                                                     pos4={action.e.clientY}
                                                     top={action.e.clientY}
                                                     left={action.e.clientX}
+                                                    elementType={action.elementType}
                                                     />;
 
                     var elementDetails = {
@@ -56,6 +57,8 @@ function manageElementReducer(state = initialState,action) {
                                                                      id ={id}
                                                                      top={top}
                                                                      left={left}
+                                                                     elementType={action.elementType}
+
                                                                      />
                                                                      :element)),
                              elementDetails:state.elementDetails

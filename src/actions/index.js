@@ -3,14 +3,14 @@ export const TEST = 'TEST'
 export const MOVE = 'MOVE'
 
 
-export function createElement(e) {
-  return { type: CREATE, e }
+export function createElement(e,elementType) {
+  return { type: CREATE, e ,elementType}
 }
 
 
-export function moveElement(e,id) {
+export function moveElement(e,id,elementType) {
   return { type: MOVE,
-            e,id
+            e,id,elementType
           }
 }
 
