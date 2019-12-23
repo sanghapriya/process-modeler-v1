@@ -11,8 +11,6 @@ function manageElementReducer(state = initialState,action) {
 
             case CREATE:
                     var latestElementId = state.latestElementId;
-                    // var elements = state.elements===undefined?[]:state.elements;
-                    // var elementDetails = state.elementDetails===undefined?[]:state.elementDetails;
                     var elements = <GenericElement          key = { latestElementId+1}
                                                     id ={ latestElementId+1}
                                                     pos1={-1*action.e.clientX}
