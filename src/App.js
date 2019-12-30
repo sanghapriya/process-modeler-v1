@@ -30,7 +30,9 @@ export default function App () {
                       <Dropdown.Item onClick={(e)=>dispatch(toogleLineSelected())}>Line</Dropdown.Item>
                     </Dropdown.Menu>
                    </Dropdown>
+                   <svg width={window.innerWidth} height={window.innerHeight} >
                    {elements.map(obj => (obj))}
+                   </svg>
 
                  </div>
               );;

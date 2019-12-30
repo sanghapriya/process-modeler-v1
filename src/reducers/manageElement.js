@@ -41,6 +41,7 @@ function manageElementReducer(state = initialState,action) {
                          };
 
              case MOVE:
+                    console.log("Moved")
                     let id = action.id;
                     let top = (state.elementDetails[id-1].top -(state.elementDetails[id-1].pos4 - action.e.clientY));
                     let left = (state.elementDetails[id-1].left -(state.elementDetails[id-1].pos3 -action.e.clientX));

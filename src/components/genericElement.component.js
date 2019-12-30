@@ -4,75 +4,58 @@ import {moveElement} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
 
-  const getStyle = (elementType,top,left) => {
+  const getElement = (elementType,top,left,id,dispatch) => {
 
                     switch(elementType) {
 
                       case ACTIVITY:
-
-                              return {
-
-                                "height": "100px",
-                                "width": "100px",
-                                "position": "absolute",
-                                "zIndex": 9,
-                                "backgroundColor": "#f1f1f1",
-                                "textAlign": "center",
-                                "border": "1px solid #d3d3d3",
-                                "top": top+"px",
-                                "left": left+"px",
-                                "cursor": "move",
-                                "display": "inline-block",
-                                              
-                              };
+                        
+                        return <rect x={left} y={top} 
+                                    width="100" 
+                                    height="100"
+                                    style={{"fill":"blue",
+                                          "stroke":"pink",
+                                          "cursor": "move",
+                                          "strokeWidth":"5",
+                                          "fillOpacity":"0.1"}}
+                                    draggable
+                                    onMouseMove={(e)=>dispatch(moveElement(e,id,elementType))} />;
 
                       case EVENT:
                               
-                        return {
-
-                          "height": "100px",
-                          "width": "100px",
-                          "position": "absolute",
-                          "backgroundColor": "#f1f1f1",
-                          "borderRadius": "50%",
-                          "textAlign": "center",
-                          "top": top+"px",
-                          "left": left+"px",
-                          "cursor": "move",
-                          "display": "inline-block",
-                          
-                          };
+                        return <circle cx={left}  cy={top}  
+                                        r="40" 
+                                        style={{"fill":"blue",
+                                        "stroke":"pink",
+                                        "cursor": "move",
+                                        "strokeWidth":"5",
+                                        "fillOpacity":"0.1"}}
+                                        draggable
+                                        onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}/>;
                       
                       case GATEWAY:
 
-                        return {
-
-                          "height": "100px",
-                          "width": "100px",
-                          "position": "absolute",
-                          "backgroundColor": "#f1f1f1",
-                          "top": top+"px",
-                          "left": left+"px",
-                          "cursor": "move",
-                          "transform": "rotate(45deg)"
-                          
-                          };
+                        return <rect x={left} y={top} 
+                                    width="150" 
+                                    height="150"
+                                    style={{"fill":"red",
+                                          "stroke":"pink",
+                                          "cursor": "move",
+                                          "strokeWidth":"5",
+                                          "fillOpacity":"0.1"}}
+                                    draggable
+                                    onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))} />;
                       default:
 
-                              return {
-
-                                "height": "100px",
-                                "width": "100px",
-                                "position": "absolute",
-                                "zIndex": 9,
-                                "backgroundColor": "#f1f1f1",
-                                "textAlign": "center",
-                                "border": "1px solid #d3d3d3",
-                                "top": top+"px",
-                                "left": left+"px",
-                                "cursor": "move",
-                                
-                                };
+                              return <circle cx={top}  cy={left}  
+                                                        r="40" 
+                                                        style={{"fill":"blue",
+                                                        "stroke":"pink",
+                                                        "cursor": "move",
+                                                        "strokeWidth":"5",
+                                                        "fillOpacity":"0.1"}}
+                                                        draggable
+                                                        onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}/>;
 
 
 
@@ -89,13 +72,6 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
     const elementType = props.elementType;
 
     
-      return(
-        <div style = {getStyle(elementType,props.top,props.left)}
-            draggable
-            onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}>
-
-
-          <p> {elementType}: {id} </p>
-        </div>
-      )
+      return getElement(elementType,props.top,props.left,id,dispatch)
+      
   }

@@ -13,6 +13,7 @@ function moveElementReducer(state = initialState,action) {
                     var latestElementId = state.latestElementId;
                     // var elements = state.elements===undefined?[]:state.elements;
                     // var elementDetails = state.elementDetails===undefined?[]:state.elementDetails;
+                    console.log("moved")
                     var elements = <Square          key = { latestElementId}
                                                     id ={ latestElementId}
                                                     pos1={-1*action.e.clientX}
