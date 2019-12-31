@@ -1,13 +1,17 @@
 import React from 'react';
 import GenericElement from '../components/genericElement.component';
-import {CREATE,MOVE} from '../actions';
+import {CREATE,MOVE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT} from '../actions';
 
 
-const initialState = {latestElementId:0,elements:[],elementDetails:[]};
+const initialState = {latestElementId:0,elements:[],elementDetails:[],isElementGrabbed:false,grabbedElementId:0,grabbedElementType:""};
 
 function manageElementReducer(state = initialState,action) {
 
+          
+
           switch(action.type){
+
+            
 
             case CREATE:
                     var latestElementId = state.latestElementId;
@@ -34,20 +38,27 @@ function manageElementReducer(state = initialState,action) {
 
 
                     return {
-
+                            ...state,
                             latestElementId:state.latestElementId+1,
                             elements:[...state.elements,elements],
                             elementDetails:[...state.elementDetails,elementDetails]
                          };
 
-             case MOVE:
-                    console.log("Moved")
-                    let id = action.id;
+             case ON_MOVE_ELEMENT:
+                    action.e.persist()
+                    console.log(action.e)
+                    
+                    if(!state.isElementGrabbed){
+                      return state
+                    }
+
+                    let id = state.grabbedElementId;
                     let top = (state.elementDetails[id-1].top -(state.elementDetails[id-1].pos4 - action.e.clientY));
                     let left = (state.elementDetails[id-1].left -(state.elementDetails[id-1].pos3 -action.e.clientX));
 
 
                      return {
+                            ...state,
 
                              latestElementId:state.latestElementId,
                              elements:state.elements
@@ -56,7 +67,7 @@ function manageElementReducer(state = initialState,action) {
                                                                      id ={id}
                                                                      top={top}
                                                                      left={left}
-                                                                     elementType={action.elementType}
+                                                                     elementType={state.grabbedElementType}
 
                                                                      />
                                                                      :element)),
@@ -71,6 +82,26 @@ function manageElementReducer(state = initialState,action) {
                                                                                   left:left,
                                                                                 }:elementDetail))
                            };
+            case ON_GRAB_ELEMENT:
+              return {
+                ...state,
+                grabbedElementId:action.id,
+                isElementGrabbed:true,
+                grabbedElementType:action.elementType
+              }
+            
+
+
+            
+            case ON_DROP_ELEMENT:
+              return {
+                ...state,
+                grabbedElementId:[],
+                isElementGrabbed:false
+              }
+
+
+
 
 
 

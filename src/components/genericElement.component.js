@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {moveElement} from '../actions';
+import {onGrabElement} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
 
@@ -10,7 +10,8 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
                       case ACTIVITY:
                         
-                        return <rect x={left} y={top} 
+                        return <svg>
+                                 <rect x={left-50} y={top-50} 
                                     width="100" 
                                     height="100"
                                     style={{"fill":"blue",
@@ -19,7 +20,9 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                           "strokeWidth":"5",
                                           "fillOpacity":"0.1"}}
                                     draggable
-                                    onMouseMove={(e)=>dispatch(moveElement(e,id,elementType))} />;
+                                    onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                                     />
+                                </svg>;
 
                       case EVENT:
                               
@@ -31,20 +34,22 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                         "strokeWidth":"5",
                                         "fillOpacity":"0.1"}}
                                         draggable
-                                        onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}/>;
+                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}/>;
                       
                       case GATEWAY:
-
-                        return <rect x={left} y={top} 
-                                    width="150" 
-                                    height="150"
+                        var width=100
+                        var height = 100
+                        var points = (left-width/2)+","+top+" "+left+","+(top+height/2)+" "+(left+width/2)+","+top+" "+left+","+(top-height/2);
+                        return <polygon points={points} 
+                                    width={width} 
+                                    height={height}
                                     style={{"fill":"red",
                                           "stroke":"pink",
                                           "cursor": "move",
                                           "strokeWidth":"5",
                                           "fillOpacity":"0.1"}}
                                     draggable
-                                    onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))} />;
+                                    onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))} />;
                       default:
 
                               return <circle cx={top}  cy={left}  
@@ -55,7 +60,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                                         "strokeWidth":"5",
                                                         "fillOpacity":"0.1"}}
                                                         draggable
-                                                        onDragEnd={(e)=>dispatch(moveElement(e,id,elementType))}/>;
+                                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}/>;
 
 
 
