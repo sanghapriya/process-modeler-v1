@@ -6,7 +6,6 @@ import toogleLineSelectedReducer from './toogleLineSelected';
 const combinedReducers = combineReducers({
   manageElement: manageElementReducer,
   testRedux:   testReduxReducer,
-  toogleLineSelected: toogleLineSelectedReducer
 });
 
 export default combinedReducers;

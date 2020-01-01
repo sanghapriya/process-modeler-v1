@@ -1,9 +1,18 @@
 import React from 'react';
 import GenericElement from '../components/genericElement.component';
-import {CREATE,MOVE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT} from '../actions';
+import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT,LINE_SELECTED} from '../actions';
 
 
-const initialState = {latestElementId:0,elements:[],elementDetails:[],isElementGrabbed:false,grabbedElementId:0,grabbedElementType:""};
+const initialState = {
+                      menuOptionChosen:"",
+                      latestElementId:0,
+                      lines:[],
+                      lineDetails:[],
+                      elements:[],
+                      elementDetails:[],
+                      isElementGrabbed:false,
+                      grabbedElementId:0,
+                      grabbedElementType:""};
 
 function manageElementReducer(state = initialState,action) {
 
@@ -11,6 +20,14 @@ function manageElementReducer(state = initialState,action) {
 
           switch(action.type){
 
+            case LINE_SELECTED:
+              var menuOptionChosen = state.menuOptionChosen === "Line"?"":"Line"
+
+              return {
+                ...state,
+                menuOptionChosen:menuOptionChosen
+
+              };
             
 
             case CREATE:
