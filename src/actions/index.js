@@ -54,7 +54,7 @@ export function lineBeingDragged(e,lineType) {
 
 export function onGrabElement(e,id,elementType) {
 
-  return {type: ON_GRAB_ELEMENT,id,elementType}
+  return {type: ON_GRAB_ELEMENT,e,id,elementType}
 }
 
 export function onMoveElement(e) {

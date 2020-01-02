@@ -11,6 +11,7 @@ export default function App () {
 
   const dispatch = useDispatch();
   const elements = useSelector(state => state.manageElement.elements);
+  const lines = useSelector(state => state.manageElement.lines);
 
 
 
@@ -33,6 +34,7 @@ export default function App () {
                    <svg width={window.innerWidth} height={window.innerHeight} onMouseUp={(e)=>dispatch(onDropElement(e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
                    {elements.map(obj => (obj))}
+                   {lines.map(obj => (obj))}
                    </svg>
 
                  </div>

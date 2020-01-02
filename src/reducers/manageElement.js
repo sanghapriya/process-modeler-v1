@@ -1,11 +1,14 @@
 import React from 'react';
 import GenericElement from '../components/genericElement.component';
+import GenericLine from '../components/genericLine.component';
 import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT,LINE_SELECTED} from '../actions';
 
 
 const initialState = {
                       menuOptionChosen:"",
+                      isDraw:false,
                       latestElementId:0,
+                      latestLineId:0,
                       lines:[],
                       lineDetails:[],
                       elements:[],
@@ -13,6 +16,32 @@ const initialState = {
                       isElementGrabbed:false,
                       grabbedElementId:0,
                       grabbedElementType:""};
+
+
+
+function getLine(latestLineId,startElementX, startElementY,clientX,clientY,endElementX,endElementY,color) {
+
+        var x1 = startElementX;
+        var y1 = startElementY;
+        var x2 = (clientX === null?endElementX:clientX);
+        var y2 = (clientY === null?endElementY:clientY);
+
+        return <GenericLine key={latestLineId} x1={x1} x2 = {x2} y1 = {y1} y2={y2} />
+
+}
+
+
+
+function getLineDetail(latestLineId,startElementX, startElementY,clientX,clientY,endElementX,endElementY,color) {
+
+  var x1 = startElementX;
+  var y1 = startElementY;
+  var x2 = (clientX === null?endElementX:clientX);
+  var y2 = (clientY === null?endElementY:clientY);
+
+  return  { id:latestLineId, x1:x1, x2:x2, y1:y1, y2:y2, color:color }
+
+}
 
 function manageElementReducer(state = initialState,action) {
 
@@ -63,7 +92,40 @@ function manageElementReducer(state = initialState,action) {
 
              case ON_MOVE_ELEMENT:
                     action.e.persist()
-                    console.log(action.e)
+
+
+                    if(state.menuOptionChosen === "Line" & state.isDraw)
+                    {
+                      
+                        console.log(state.lineDetails)
+
+                          return {
+                            ...state,
+                            latestLineId:state.latestLineId,
+                            lines:state.lines.map((line,index) => (index === state.latestLineId-1?                       
+                                                                    <GenericLine          key = { state.latestLineId}
+                                                                    id = { latestLineId}
+                                                                   
+                                                                    x1 = {state.lineDetails[index].x1}
+                                                                    y1 = {state.lineDetails[index].y1}
+                                                                    x2 = {action.e.clientX}
+                                                                    y2 = {action.e.clientY}
+                                                                    />:line)),
+
+                            lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?
+                                                                                        {id:state.latestLineId,
+                                                                                       
+                                                                                        x1: state.lineDetails[index].x1,
+                                                                                        y1: state.lineDetails[index].y1,
+                                                                                        x2:action.e.clientX,
+                                                                                        y2:action.e.clientY}:lineDetail))
+                                                                                        };
+                                                                                      }
+
+
+                        
+                    else{
+                    
                     
                     if(!state.isElementGrabbed){
                       return state
@@ -99,24 +161,73 @@ function manageElementReducer(state = initialState,action) {
                                                                                   left:left,
                                                                                 }:elementDetail))
                            };
+
+                          }
+                              
             case ON_GRAB_ELEMENT:
-              return {
-                ...state,
-                grabbedElementId:action.id,
-                isElementGrabbed:true,
-                grabbedElementType:action.elementType
-              }
+
+
+
+
+                if(state.menuOptionChosen === "Line")
+                {
+                  
+                  var latestLineId = state.latestLineId+1;
+                  var x = state.elementDetails[action.id-1].left;
+                  var y = state.elementDetails[action.id-1].top;
+        
+                  var line = getLine(latestLineId,x,y,x,y,null,null,"red");
+                  var lineDetail = getLineDetail(latestLineId,x,y,x,y,null,null,"red");
+                  
+                  return {
+                    ...state,
+                    isDraw:true,
+                    latestLineId: latestLineId,
+                    lines: [...state.lines,line],
+                    lineDetails: [...state.lineDetails,lineDetail],
+                  }
+
+                }
+                else{
+
+                  return {
+                    ...state,
+                    latestLineId: latestLineId,
+                    grabbedElementId:action.id,
+                    isElementGrabbed:true,
+                    grabbedElementType:action.elementType
+                  }
+            }
+
+
+
             
 
 
             
             case ON_DROP_ELEMENT:
-              return {
-                ...state,
-                grabbedElementId:[],
-                isElementGrabbed:false
-              }
 
+              if(state.menuOptionChosen === "Line")
+              {
+
+                return {
+                  ...state,
+                  isDraw:false,
+                 
+
+                }
+
+
+                    }
+              else{
+
+
+                      return {
+                        ...state,
+                        grabbedElementId:[],
+                        isElementGrabbed:false
+                      }
+            }
 
 
 

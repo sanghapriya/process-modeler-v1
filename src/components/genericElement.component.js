@@ -11,7 +11,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                       case ACTIVITY:
                         
                         return <svg>
-                                 <rect x={left-50} y={top-50} 
+                                 <rect x={left-50} y={top} 
                                     width="100" 
                                     height="100"
                                     style={{"fill":"blue",

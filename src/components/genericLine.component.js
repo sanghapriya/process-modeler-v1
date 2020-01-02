@@ -10,7 +10,7 @@ const line =  {
 
 
 
-export default function genericLine (props)  {
+export default function GenericLine (props)  {
     
       return(
         <svg>
