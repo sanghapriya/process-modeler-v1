@@ -19,27 +19,29 @@ const initialState = {
 
 
 
-function getLine(latestLineId,startElementX, startElementY,clientX,clientY,endElementX,endElementY,color) {
+function getLine(lineId,elementDetails,startElementId,endElementId,clientX,clientY,color) {
 
-        var x1 = startElementX;
-        var y1 = startElementY;
-        var x2 = (clientX === null?endElementX:clientX);
-        var y2 = (clientY === null?endElementY:clientY);
+        var x1 = elementDetails[startElementId-1].left;
+        var y1 = elementDetails[startElementId-1].top;
+        var x2 = (endElementId === null?clientX:elementDetails[endElementId-1].left);
+        var y2 = (endElementId === null?clientY:elementDetails[endElementId-1].top);
 
-        return <GenericLine key={latestLineId} x1={x1} x2 = {x2} y1 = {y1} y2={y2} />
+        return <GenericLine key={lineId} x1={x1} x2 = {x2} y1 = {y1} y2={y2} />
 
 }
 
 
 
-function getLineDetail(latestLineId,startElementX, startElementY,clientX,clientY,endElementX,endElementY,color) {
+function getLineDetail(lineId,elementDetails,startElementId,endElementId,clientX,clientY,color) {
 
-  var x1 = startElementX;
-  var y1 = startElementY;
-  var x2 = (clientX === null?endElementX:clientX);
-  var y2 = (clientY === null?endElementY:clientY);
-
-  return  { id:latestLineId, x1:x1, x2:x2, y1:y1, y2:y2, color:color }
+  return  { 
+          id:lineId, 
+          startElementId:startElementId,
+          endElementId:endElementId,
+          x:clientX,
+          y:clientY,
+          color:color
+          }
 
 }
 
@@ -102,23 +104,24 @@ function manageElementReducer(state = initialState,action) {
                           return {
                             ...state,
                             latestLineId:state.latestLineId,
-                            lines:state.lines.map((line,index) => (index === state.latestLineId-1?                       
-                                                                    <GenericLine          key = { state.latestLineId}
-                                                                    id = { latestLineId}
-                                                                   
-                                                                    x1 = {state.lineDetails[index].x1}
-                                                                    y1 = {state.lineDetails[index].y1}
-                                                                    x2 = {action.e.clientX}
-                                                                    y2 = {action.e.clientY}
-                                                                    />:line)),
+                            lines:state.lines.map((line,index) => (index === state.latestLineId-1? 
+                                                                    getLine(
+                                                                      state.lineDetails[index].id,
+                                                                      state.elementDetails,
+                                                                      state.lineDetails[index].startElementId,
+                                                                      state.lineDetails[index].endElementId,
+                                                                      action.e.clientX,
+                                                                      action.e.clientY
+                                                                      ):line)),
 
                             lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?
-                                                                                        {id:state.latestLineId,
-                                                                                       
-                                                                                        x1: state.lineDetails[index].x1,
-                                                                                        y1: state.lineDetails[index].y1,
-                                                                                        x2:action.e.clientX,
-                                                                                        y2:action.e.clientY}:lineDetail))
+                                                                                      getLineDetail(
+                                                                                        state.lineDetails[index].id,
+                                                                                        state.elementDetails,
+                                                                                        state.lineDetails[index].startElementId,
+                                                                                        state.lineDetails[index].endElementId,
+                                                                                        action.e.clientX,
+                                                                                        action.e.clientY ):lineDetail))
                                                                                         };
                                                                                       }
 
@@ -138,8 +141,27 @@ function manageElementReducer(state = initialState,action) {
 
                      return {
                             ...state,
+                            
 
                              latestElementId:state.latestElementId,
+                             lines:state.lines.map((line,index) => 
+                                                                  getLine(
+                                                                    state.lineDetails[index].id,
+                                                                    state.elementDetails,
+                                                                    state.lineDetails[index].startElementId,
+                                                                    state.lineDetails[index].endElementId,
+                                                                    state.lineDetails[index].x,
+                                                                    state.lineDetails[index].y
+                                                                    )),
+
+                            lineDetails:state.lineDetails.map((lineDetail,index) => 
+                                                                                              getLineDetail(
+                                                                                                state.lineDetails[index].id,
+                                                                                                state.elementDetails,
+                                                                                                state.lineDetails[index].startElementId,
+                                                                                                state.lineDetails[index].endElementId,
+                                                                                                state.lineDetails[index].x,
+                                                                                                state.lineDetails[index].y )),
                              elements:state.elements
                                             .map((element,index) => (index === id-1?
                                                                     <GenericElement key = {id}
@@ -167,17 +189,15 @@ function manageElementReducer(state = initialState,action) {
             case ON_GRAB_ELEMENT:
 
 
-
+                action.e.persist();
 
                 if(state.menuOptionChosen === "Line")
                 {
                   
                   var latestLineId = state.latestLineId+1;
-                  var x = state.elementDetails[action.id-1].left;
-                  var y = state.elementDetails[action.id-1].top;
         
-                  var line = getLine(latestLineId,x,y,x,y,null,null,"red");
-                  var lineDetail = getLineDetail(latestLineId,x,y,x,y,null,null,"red");
+                  var line = getLine(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
+                  var lineDetail = getLineDetail(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
                   
                   return {
                     ...state,
@@ -192,7 +212,7 @@ function manageElementReducer(state = initialState,action) {
 
                   return {
                     ...state,
-                    latestLineId: latestLineId,
+                    
                     grabbedElementId:action.id,
                     isElementGrabbed:true,
                     grabbedElementType:action.elementType
@@ -206,34 +226,45 @@ function manageElementReducer(state = initialState,action) {
 
             
             case ON_DROP_ELEMENT:
-
-              if(state.menuOptionChosen === "Line")
+              
+              
+              if(state.menuOptionChosen === "Line"  & state.isDraw)
               {
+                if(action.id === null){
 
-                return {
-                  ...state,
-                  isDraw:false,
-                 
+                  return {
+                    ...state,
+                    isDraw:false,
+                    } 
 
-                }
+                  }
+                else {
+                      var latestLineId = state.latestLineId;
+                      var startElementId = state.lineDetails[latestLineId-1].startElementId
+                      var lineDrawn = getLine(latestLineId, state.elementDetails,startElementId , action.id, null, null, "blue");
+                      var lineDetailDrawn = getLineDetail(latestLineId, state.elementDetails,startElementId, action.id, null, null, "blue");
 
+                      return {
+                      ...state,
+                      isDraw:false,
+                      lines:state.lines.map((line,index) => (index === state.latestLineId-1? lineDrawn:line)),
+                      lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?lineDetailDrawn:lineDetail)),
+                      }
+                
 
                     }
+                  }
               else{
 
 
                       return {
                         ...state,
                         grabbedElementId:[],
+                        grabbedElementType:"",
                         isElementGrabbed:false
                       }
-            }
 
-
-
-
-
-
+                }
           default:
                     return state;
       }

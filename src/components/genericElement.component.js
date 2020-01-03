@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {onGrabElement} from '../actions';
+import {onGrabElement,onDropElement} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
 
@@ -21,6 +21,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                           "fillOpacity":"0.1"}}
                                     draggable
                                     onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                                    onMouseUp={(e)=>dispatch(onDropElement(id,elementType))}
                                      />
                                 </svg>;
 
@@ -34,7 +35,9 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                         "strokeWidth":"5",
                                         "fillOpacity":"0.1"}}
                                         draggable
-                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}/>;
+                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                                        onMouseUp={(e)=>dispatch(onDropElement(id,elementType))}
+                                        />;
                       
                       case GATEWAY:
                         var width=100
@@ -49,7 +52,8 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                           "strokeWidth":"5",
                                           "fillOpacity":"0.1"}}
                                     draggable
-                                    onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))} />;
+                                    onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                                    onMouseUp={(e)=>dispatch(onDropElement(id,elementType))} />;
                       default:
 
                               return <circle cx={top}  cy={left}  

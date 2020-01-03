@@ -31,7 +31,7 @@ export default function App () {
                       <Dropdown.Item onClick={(e)=>dispatch(lineSelected())}>Line</Dropdown.Item>
                     </Dropdown.Menu>
                    </Dropdown>
-                   <svg width={window.innerWidth} height={window.innerHeight} onMouseUp={(e)=>dispatch(onDropElement(e))}
+                   <svg width={window.innerWidth} height={window.innerHeight} onMouseUp={(e)=>dispatch(onDropElement(null,null))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
                    {elements.map(obj => (obj))}
                    {lines.map(obj => (obj))}
