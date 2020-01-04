@@ -5,6 +5,8 @@ export const ON_GRAB_ELEMENT = 'ON_GRAB_ELEMENT'
 export const ON_MOVE_ELEMENT = 'ON_MOVE_ELEMENT'
 export const ON_DROP_ELEMENT = 'ON_DROP_ELEMENT'
 export const LINE_SELECTED = 'LINE_SELECTED'
+export const DRAG_SELECTED = 'DRAG_SELECTED'
+export const SELECT_ELEMENT = 'SELECT_ELEMENT'
 export const LINE_DRAG_START = 'LINE_DRAG_START'
 export const LINE_DRAG_END = 'LINE_DRAG_END'
 export const LINE_BEING_DRAGGED = 'LINE_BEING_DRAGGED'
@@ -33,6 +35,15 @@ export function lineSelected() {
   return {type: LINE_SELECTED}
 }
 
+export function dragSelected() {
+
+  return {type: DRAG_SELECTED}
+}
+
+export function selectElement() {
+
+  return {type: SELECT_ELEMENT}
+}
 
 export function lineDragStart(e,lineType) {
 
