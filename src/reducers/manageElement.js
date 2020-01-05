@@ -5,7 +5,9 @@ import elementDragged from './manageElementUtility/elementDragged.manageLine';
 import lineDraw from './manageElementUtility/lineDraw.manageLine';
 import getLine from './manageElementUtility/getLineUtility.manageLine';
 import getLineDetail from './manageElementUtility/getLineDetail.manageLine';
-import createElement from './manageElementUtility/createElement.manageElement'
+import createElement from './manageElementUtility/createElement.manageElement';
+import selectElement from './manageElementUtility/selectElement.manageElement';
+import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX} from '../constants';
 
 const initialState = {
                       menuOptionChosen:DRAG_SELECTED,
@@ -16,6 +18,8 @@ const initialState = {
                       lineDetails:[],
                       elements:[],
                       elementDetails:[],
+                      selectBox:[],
+                      selectBoxDetails:[],
                       isElementGrabbed:false,
                       grabbedElementId:0,
                       grabbedElementType:""};
@@ -71,13 +75,27 @@ function manageElementReducer(state = initialState,action) {
                          return lineDraw(state,action,false);
                     }
                     else{
+
+                      if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw){
+
+                        return selectElement(state,action,DRAG_SELECT_BOX);
+    
+    
+                      }
+
+                      else{
+
                          return elementDragged(state,action);
+
+                      }
                     }
                               
             case ON_GRAB_ELEMENT:
 
 
                 action.e.persist();
+
+                console.log("Grabbed");
 
                 if(state.menuOptionChosen === LINE_SELECTED)
                 {
@@ -88,22 +106,30 @@ function manageElementReducer(state = initialState,action) {
                 }
                 else{
 
-                  return {
-                    ...state,
-                    
-                    grabbedElementId:action.id,
-                    isElementGrabbed:true,
-                    grabbedElementType:action.elementType
+                  if(state.menuOptionChosen === SELECT_ELEMENT){
+                    console.log("Grabbed")
+
+                    return selectElement(state,action,START_SELECT_BOX);
+
+
                   }
+
+                  else{
+
+                      return {
+                        ...state,
+                        
+                        grabbedElementId:action.id,
+                        isElementGrabbed:true,
+                        grabbedElementType:action.elementType
+                      }
+
+                }
             }
-
-
-
-            
-
-
-            
+ 
             case ON_DROP_ELEMENT:
+              console.log("Dropped")
+              console.log(state)
               
               
               if(state.menuOptionChosen === LINE_SELECTED  & state.isDraw)
@@ -134,6 +160,17 @@ function manageElementReducer(state = initialState,action) {
                   }
               else{
 
+                if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw){
+
+                  console.log("Select Element dropped")
+
+                  return selectElement(state,action,END_SELECT_BOX);
+
+
+                }
+
+                else{
+
 
                       return {
                         ...state,
@@ -141,6 +178,8 @@ function manageElementReducer(state = initialState,action) {
                         grabbedElementType:"",
                         isElementGrabbed:false
                       }
+
+                    }
 
                 }
           default:

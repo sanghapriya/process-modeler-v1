@@ -6,12 +6,20 @@ import getLineDetail from './getLineDetail.manageLine'
 
 export default function lineDraw (state,action,isNew) {
 
+  console.log(action);
+
+  if(state.latestElementId === 0){
+
+    return state;
+  }
+
 
 
   if(isNew){
 
+    
+
     var latestLineId = state.latestLineId+1;
-        
     var line = getLine(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
     var lineDetail = getLineDetail(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
     

@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown,ButtonToolbar,Button,DropdownButton} from 'react-bootstrap';
 import {useSelector, useDispatch} from 'react-redux';
-import {LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT} from './actions';
+import {LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT, onGrabElement} from './actions';
 import {createElement,lineSelected,dragSelected,selectElement,onDropElement,onMoveElement} from './actions';
 import {ACTIVITY,EVENT,GATEWAY} from './constants';
 
@@ -38,6 +38,7 @@ export default function App () {
   const elements = useSelector(state => state.manageElement.elements);
   const lines = useSelector(state => state.manageElement.lines);
   const menuOptionChosen = useSelector(state => state.manageElement.menuOptionChosen);
+  const selectBox = useSelector(state => state.manageElement.selectBox);
 
 
 
@@ -62,10 +63,13 @@ export default function App () {
                     </Dropdown.Menu>
                    </Dropdown>
                    </ButtonToolbar>
-                   <svg width={window.innerWidth} height={window.innerHeight} onMouseUp={(e)=>dispatch(onDropElement(null,null))}
+                   <svg width={window.innerWidth} height={window.innerHeight} 
+                   onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}
+                   onMouseUp={(e)=>dispatch(onDropElement(null,null))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
                    {elements.map(obj => (obj))}
                    {lines.map(obj => (obj))}
+                   {selectBox}
                    </svg>
 
                  </div>
