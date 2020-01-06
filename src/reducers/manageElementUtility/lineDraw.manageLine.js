@@ -6,9 +6,9 @@ import getLineDetail from './getLineDetail.manageLine'
 
 export default function lineDraw (state,action,isNew) {
 
-  console.log(action);
+  // console.log(state);
 
-  if(state.latestElementId === 0){
+  if(state.latestElementId === 0 | typeof(action.e) === undefined ){
 
     return state;
   }

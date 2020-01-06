@@ -47,6 +47,7 @@ export default function elementDragged (state,action)  {
                                                        id ={id}
                                                        top={top}
                                                        left={left}
+                                                       color={"pink"}
                                                        elementType={state.grabbedElementType}
 
                                                        />
@@ -58,6 +59,7 @@ export default function elementDragged (state,action)  {
                                                                     pos2: state.elementDetails[id-1].pos4 -action.e.clientY,
                                                                     pos3:action.e.clientX,
                                                                     pos4:action.e.clientY,
+                                                                    color:"pink",
                                                                     top:top,
                                                                     left:left,
                                                                   }:elementDetail))

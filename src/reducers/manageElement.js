@@ -1,5 +1,3 @@
-import React from 'react';
-import GenericElement from '../components/genericElement.component';
 import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT} from '../actions';
 import elementDragged from './manageElementUtility/elementDragged.manageLine';
 import lineDraw from './manageElementUtility/lineDraw.manageLine';
@@ -22,7 +20,8 @@ const initialState = {
                       selectBoxDetails:[],
                       isElementGrabbed:false,
                       grabbedElementId:0,
-                      grabbedElementType:""};
+                      grabbedElementType:"",
+                      selectedElementIds:[]};
 
 
 
@@ -93,43 +92,54 @@ function manageElementReducer(state = initialState,action) {
             case ON_GRAB_ELEMENT:
 
 
-                action.e.persist();
+                // action.e.persist();
 
                 console.log("Grabbed");
 
-                if(state.menuOptionChosen === LINE_SELECTED)
-                {
-                  
-                  return lineDraw(state,action,true)
 
 
-                }
-                else{
-
-                  if(state.menuOptionChosen === SELECT_ELEMENT){
-                    console.log("Grabbed")
+              if(state.menuOptionChosen === SELECT_ELEMENT){
+                    
 
                     return selectElement(state,action,START_SELECT_BOX);
 
 
                   }
 
-                  else{
+                else{
 
-                      return {
-                        ...state,
-                        
-                        grabbedElementId:action.id,
-                        isElementGrabbed:true,
-                        grabbedElementType:action.elementType
-                      }
+                    if(action.id === null){
 
-                }
+                      return state;
+
+                    }
+                    else{
+                          if(state.menuOptionChosen === LINE_SELECTED)
+                          {
+                            
+                            return lineDraw(state,action,true)
+          
+          
+                          }
+                          else{
+
+                          return {
+                            ...state,
+                            
+                            grabbedElementId:action.id,
+                            isElementGrabbed:true,
+                            grabbedElementType:action.elementType
+                          }
+
+                        }
+
+                    }
             }
  
             case ON_DROP_ELEMENT:
-              console.log("Dropped")
-              console.log(state)
+              // action.e.persist();
+              // console.log("Dropped")
+              // console.log(state)
               
               
               if(state.menuOptionChosen === LINE_SELECTED  & state.isDraw)
@@ -162,7 +172,7 @@ function manageElementReducer(state = initialState,action) {
 
                 if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw){
 
-                  console.log("Select Element dropped")
+                  // console.log("Select Element dropped")
 
                   return selectElement(state,action,END_SELECT_BOX);
 

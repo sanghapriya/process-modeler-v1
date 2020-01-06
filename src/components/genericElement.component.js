@@ -4,7 +4,7 @@ import {onGrabElement,onDropElement} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
 
-  const getElement = (elementType,top,left,id,dispatch) => {
+  const getElement = (elementType,top,left,color,id,dispatch) => {
 
                     switch(elementType) {
 
@@ -14,7 +14,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                  <rect x={left-50} y={top} 
                                     width="100" 
                                     height="100"
-                                    style={{"fill":"blue",
+                                    style={{"fill":color===null?"blue":color,
                                           "stroke":"pink",
                                           "cursor": "move",
                                           "strokeWidth":"5",
@@ -29,7 +29,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                               
                         return <circle cx={left}  cy={top}  
                                         r="40" 
-                                        style={{"fill":"blue",
+                                        style={{"fill":color===null?"blue":color,
                                         "stroke":"pink",
                                         "cursor": "move",
                                         "strokeWidth":"5",
@@ -46,7 +46,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                         return <polygon points={points} 
                                     width={width} 
                                     height={height}
-                                    style={{"fill":"red",
+                                    style={{"fill":color===null?"blue":color,
                                           "stroke":"pink",
                                           "cursor": "move",
                                           "strokeWidth":"5",
@@ -58,7 +58,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
                               return <circle cx={top}  cy={left}  
                                                         r="40" 
-                                                        style={{"fill":"blue",
+                                                        style={{"fill":color===null?"blue":color,
                                                         "stroke":"pink",
                                                         "cursor": "move",
                                                         "strokeWidth":"5",
@@ -81,6 +81,6 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
     const elementType = props.elementType;
 
     
-      return getElement(elementType,props.top,props.left,id,dispatch)
+      return getElement(elementType,props.top,props.left,props.color,id,dispatch)
       
   }
