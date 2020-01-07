@@ -73,7 +73,7 @@ export function onMoveElement(e) {
   return {type: ON_MOVE_ELEMENT,e}
 }
 
-export function onDropElement(id,elementType) {
+export function onDropElement(id,elementType,e) {
 
-  return {type: ON_DROP_ELEMENT,id,elementType}
+  return {type: ON_DROP_ELEMENT,id,elementType,e}
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import getLine from './getLineUtility.manageLine'
 import getLineDetail from './getLineDetail.manageLine'
+import {LINE_NEW,LINE_SELECTED_BOX,LINE_REFRESH} from '../../constants'
 
 
 
-export default function lineDraw (state,action,isNew) {
+export default function lineDraw (state,action,lineOperation) {
 
   // console.log(state);
 
@@ -15,7 +16,7 @@ export default function lineDraw (state,action,isNew) {
 
 
 
-  if(isNew){
+  if(lineOperation === LINE_NEW){
 
     
 
@@ -46,7 +47,8 @@ export default function lineDraw (state,action,isNew) {
                                                       state.lineDetails[index].startElementId,
                                                       state.lineDetails[index].endElementId,
                                                       action.e.clientX,
-                                                      action.e.clientY
+                                                      action.e.clientY,
+                                                      lineOperation === LINE_SELECTED_BOX?"green":"red"
                                                       ):line)),
 
             lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?
@@ -56,7 +58,9 @@ export default function lineDraw (state,action,isNew) {
                                                                         state.lineDetails[index].startElementId,
                                                                         state.lineDetails[index].endElementId,
                                                                         action.e.clientX,
-                                                                        action.e.clientY ):lineDetail))
+                                                                        action.e.clientY,
+                                                                        lineOperation === LINE_SELECTED_BOX?"green":"red" )
+                                                                        :lineDetail))
                                                                         };
 
                                                                     };

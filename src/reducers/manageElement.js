@@ -5,7 +5,7 @@ import getLine from './manageElementUtility/getLineUtility.manageLine';
 import getLineDetail from './manageElementUtility/getLineDetail.manageLine';
 import createElement from './manageElementUtility/createElement.manageElement';
 import selectElement from './manageElementUtility/selectElement.manageElement';
-import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX} from '../constants';
+import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX,LINE_NEW,LINE_REFRESH} from '../constants';
 
 const initialState = {
                       menuOptionChosen:DRAG_SELECTED,
@@ -25,13 +25,7 @@ const initialState = {
 
 
 
-
-
-
 function manageElementReducer(state = initialState,action) {
-
-          
-
           switch(action.type){
 
             case LINE_SELECTED:
@@ -71,7 +65,7 @@ function manageElementReducer(state = initialState,action) {
 
                     if(state.menuOptionChosen === LINE_SELECTED & state.isDraw) {
                       
-                         return lineDraw(state,action,false);
+                         return lineDraw(state,action,LINE_REFRESH);
                     }
                     else{
 
@@ -117,7 +111,7 @@ function manageElementReducer(state = initialState,action) {
                           if(state.menuOptionChosen === LINE_SELECTED)
                           {
                             
-                            return lineDraw(state,action,true)
+                            return lineDraw(state,action,LINE_NEW)
           
           
                           }
@@ -170,7 +164,7 @@ function manageElementReducer(state = initialState,action) {
                   }
               else{
 
-                if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw){
+                if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw ){
 
                   // console.log("Select Element dropped")
 

@@ -65,7 +65,7 @@ export default function App () {
                    </ButtonToolbar>
                    <svg width={window.innerWidth} height={window.innerHeight} 
                    onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}
-                   onMouseUp={(e)=>dispatch(onDropElement(null,null))}
+                   onMouseUp={(e)=>dispatch(onDropElement(null,null,e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
                    {elements.map(obj => (obj))}
                    {lines.map(obj => (obj))}
