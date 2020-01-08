@@ -21,7 +21,8 @@ const initialState = {
                       isElementGrabbed:false,
                       grabbedElementId:0,
                       grabbedElementType:"",
-                      selectedElementIds:[]};
+                      selectedElementIds:[],
+                      selecteLineIds:[]};
 
 
 
