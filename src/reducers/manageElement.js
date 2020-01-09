@@ -1,10 +1,13 @@
-import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT} from '../actions';
+import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,
+  ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT,DELETE_ELEMENTS} from '../actions';
 import elementDragged from './manageElementUtility/elementDragged.manageLine';
 import lineDraw from './manageElementUtility/lineDraw.manageLine';
 import getLine from './manageElementUtility/getLineUtility.manageLine';
 import getLineDetail from './manageElementUtility/getLineDetail.manageLine';
 import createElement from './manageElementUtility/createElement.manageElement';
 import selectElement from './manageElementUtility/selectElement.manageElement';
+import deleteElement from './manageElementUtility/deleteElement.manageElement';
+
 import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX,LINE_NEW,LINE_REFRESH} from '../constants';
 
 const initialState = {
@@ -22,12 +25,14 @@ const initialState = {
                       grabbedElementId:0,
                       grabbedElementType:"",
                       selectedElementIds:[],
-                      selecteLineIds:[]};
+                      selectedLineIds:[]};
 
 
 
 function manageElementReducer(state = initialState,action) {
           switch(action.type){
+
+
 
             case LINE_SELECTED:
               
@@ -56,6 +61,10 @@ function manageElementReducer(state = initialState,action) {
                   menuOptionChosen:DRAG_SELECTED
   
                 };
+
+            case DELETE_ELEMENTS:
+              console.log("DElete")
+              return deleteElement(state)
 
             case CREATE:
               return createElement(state,action)

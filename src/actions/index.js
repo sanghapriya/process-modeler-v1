@@ -7,6 +7,7 @@ export const ON_DROP_ELEMENT = 'ON_DROP_ELEMENT'
 export const LINE_SELECTED = 'LINE_SELECTED'
 export const DRAG_SELECTED = 'DRAG_SELECTED'
 export const SELECT_ELEMENT = 'SELECT_ELEMENT'
+export const DELETE_ELEMENTS = 'DELETE_ELEMENTS'
 export const LINE_DRAG_START = 'LINE_DRAG_START'
 export const LINE_DRAG_END = 'LINE_DRAG_END'
 export const LINE_BEING_DRAGGED = 'LINE_BEING_DRAGGED'
@@ -76,4 +77,10 @@ export function onMoveElement(e) {
 export function onDropElement(id,elementType,e) {
 
   return {type: ON_DROP_ELEMENT,id,elementType,e}
+}
+
+
+export function onDelete() {
+
+  return {type: DELETE_ELEMENTS}
 }

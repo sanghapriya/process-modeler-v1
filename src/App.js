@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown,ButtonToolbar,Button,DropdownButton} from 'react-bootstrap';
 import {useSelector, useDispatch} from 'react-redux';
 import {LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT, onGrabElement} from './actions';
-import {createElement,lineSelected,dragSelected,selectElement,onDropElement,onMoveElement} from './actions';
+import {createElement,lineSelected,dragSelected,selectElement,onDropElement,onMoveElement,onDelete} from './actions';
 import {ACTIVITY,EVENT,GATEWAY} from './constants';
 
 
@@ -62,6 +62,7 @@ export default function App () {
                       
                     </Dropdown.Menu>
                    </Dropdown>
+                   <Button variant="danger" onClick={(e)=>dispatch(onDelete())}>Delete</Button>
                    </ButtonToolbar>
                    <svg width={window.innerWidth} height={window.innerHeight} 
                    onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}

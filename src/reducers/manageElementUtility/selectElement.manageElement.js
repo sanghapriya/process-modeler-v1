@@ -142,7 +142,7 @@ export default function selectElement(state,action,selectPhase){
                 
                 return {
                             ...state,
-                            selecteLineIds:state.lineDetails.filter((lineDetail,index) => 
+                            selectedLineIds:state.lineDetails.filter((lineDetail,index) => 
                                                             checkIfLineFallsInSelectBox(state,action,index))
                                                             .map((lineDetail) =>(lineDetail.id)),
 
