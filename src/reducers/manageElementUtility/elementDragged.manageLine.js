@@ -30,7 +30,8 @@ export default function elementDragged (state,action)  {
                                                       state.lineDetails[index].startElementId,
                                                       state.lineDetails[index].endElementId,
                                                       state.lineDetails[index].x,
-                                                      state.lineDetails[index].y
+                                                      state.lineDetails[index].y,
+                                                      state.lineDetails[index].color
                                                       )),
 
               lineDetails:state.lineDetails.map((lineDetail,index) => 
@@ -40,14 +41,15 @@ export default function elementDragged (state,action)  {
                                                                                   state.lineDetails[index].startElementId,
                                                                                   state.lineDetails[index].endElementId,
                                                                                   state.lineDetails[index].x,
-                                                                                  state.lineDetails[index].y )),
+                                                                                  state.lineDetails[index].y,
+                                                                                  state.lineDetails[index].color  )),
                elements:state.elements
                               .map((element,index) => (index === id-1?
                                                       <GenericElement key = {id}
                                                        id ={id}
                                                        top={top}
                                                        left={left}
-                                                       color={"pink"}
+                                                       color={state.elementDetails[index].color}
                                                        elementType={state.grabbedElementType}
 
                                                        />
@@ -55,13 +57,15 @@ export default function elementDragged (state,action)  {
                elementDetails:state.elementDetails
                                    .map((elementDetail,index) => (index===id-1?
                                                                   {
-                                                                    pos1:state.elementDetails[id-1].pos3 -action.e.clientX,
-                                                                    pos2: state.elementDetails[id-1].pos4 -action.e.clientY,
+                                                                    id:state.elementDetails[index].id,
+                                                                    pos1:state.elementDetails[index].pos3 -action.e.clientX,
+                                                                    pos2: state.elementDetails[index].pos4 -action.e.clientY,
                                                                     pos3:action.e.clientX,
                                                                     pos4:action.e.clientY,
-                                                                    color:"pink",
+                                                                    color:state.elementDetails[index].color,
                                                                     top:top,
                                                                     left:left,
+                                                                    elementType:state.elementDetails[index].elementType
                                                                   }:elementDetail))
              };
 

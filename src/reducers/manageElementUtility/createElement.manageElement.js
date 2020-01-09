@@ -19,13 +19,15 @@ export default function createElement (state,action ) {
                                                             />;
 
                             var elementDetails = {
+                                                            id:latestElementId+1,
                                                             pos1:-1*action.e.clientX,
                                                             pos2: -1*action.e.clientY,
                                                             pos3:action.e.clientX,
                                                             pos4:action.e.clientY,
                                                             color: "red",
                                                             top:action.e.clientY,
-                                                            left:action.e.clientX,};
+                                                            left:action.e.clientX,
+                                                            elementType:action.elementType};
 
 
 

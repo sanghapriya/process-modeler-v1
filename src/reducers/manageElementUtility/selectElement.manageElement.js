@@ -3,6 +3,7 @@ import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX} from '../../constants'
 import SelectBox from '../../components/selectBox.component'
 import getLine from './getLineUtility.manageLine';
 import GenericElement from '../../components/genericElement.component';
+import getLineDetail from './getLineDetail.manageLine';
 
 
 
@@ -46,7 +47,47 @@ const getColoredLine =(state,action,index,color) => {
                                         color
                                         )};
 
+const getColoredLineDetail =(lineDetail,elementDetails,color) => {
+    return getLineDetail(
+                lineDetail.id,
+                elementDetails,
+                lineDetail.startElementId,
+                lineDetail.endElementId,
+                lineDetail.x,
+                lineDetail.y,
+                color
+                )};
 
+
+
+
+const getColoredElement = (state,index,color) => {
+
+                            return <GenericElement 
+                            key = {state.elementDetails[index].id}
+                            id ={state.elementDetails[index].id}
+                            top={state.elementDetails[index].top}
+                            left={state.elementDetails[index].left}
+                            color={color}
+                            elementType={state.elementDetails[index].elementType}/>
+    
+                            };
+
+const getColoredElementDetail = (elementDetail,color) => {
+
+                                return {
+                                    id:elementDetail.id,
+                                    pos1:elementDetail.pos1,
+                                    pos2: elementDetail.pos2,
+                                    pos3:elementDetail.pos3,
+                                    pos4:elementDetail.pos4,
+                                    color:color,
+                                    top:elementDetail.top,
+                                    left:elementDetail.left,
+                                    elementType:elementDetail.elementType,
+                                  }
+
+                                };
 
 
 export default function selectElement(state,action,selectPhase){
@@ -110,38 +151,18 @@ export default function selectElement(state,action,selectPhase){
                                                     getColoredLine(state,action,index,"blue")                                                      
                                                 ),
 
+                            lineDetails:state.lineDetails.map((lineDetail,index) => checkIfLineFallsInSelectBox(state,action,index)?
+                                                        getColoredLineDetail(lineDetail,state.elementDetails,"green"):
+                                                        getColoredLineDetail(lineDetail,state.elementDetails,"blue")                                                     
+                                                    ),
+
                             elements:state.elements.map((element,index) => checkIfElementFallsInSelectBox(state,index)?
-                                                                        <GenericElement key = {state.elementDetails[index].id}
-                                                                         id ={state.elementDetails[index].id}
-                                                                         top={state.elementDetails[index].top}
-                                                                         left={state.elementDetails[index].left}
-                                                                         color={"green"}
-                                                                         elementType={state.elementDetails[index].grabbedElementType}/>
-                                                                         : <GenericElement key = {state.elementDetails[index].id}
-                                                                         id ={state.elementDetails[index].id}
-                                                                         top={state.elementDetails[index].top}
-                                                                         left={state.elementDetails[index].left}
-                                                                         color={state.elementDetails[index].color}
-                                                                         elementType={state.elementDetails[index].grabbedElementType}/>),
+                                                                                    getColoredElement(state,index,"green"):
+                                                                                    getColoredElement(state,index,"red")),
                                  elementDetails:state.elementDetails
                                                      .map((elementDetail,index) => checkIfElementFallsInSelectBox(state,index)?
-                                                                                    {
-                                                                                      pos1:elementDetail.pos1,
-                                                                                      pos2: elementDetail.pos2,
-                                                                                      pos3:elementDetail.pos3,
-                                                                                      pos4:elementDetail.pos4,
-                                                                                      color:"green",
-                                                                                      top:elementDetail.top,
-                                                                                      left:elementDetail.left,
-                                                                                    }:{
-                                                                                        pos1:elementDetail.pos1,
-                                                                                        pos2: elementDetail.pos2,
-                                                                                        pos3:elementDetail.pos3,
-                                                                                        pos4:elementDetail.pos4,
-                                                                                        color:"red",
-                                                                                        top:elementDetail.top,
-                                                                                        left:elementDetail.left,
-                                                                                      }),
+                                                                                        getColoredElementDetail(elementDetail,"green"):
+                                                                                        getColoredElementDetail(elementDetail,"red")),
                             selectedElementIds:state.elementDetails.filter((elementDetail,index) => 
                                                         checkIfElementFallsInSelectBox(state,index))
                                                         .map((elementDetail) =>(elementDetail.id)),
