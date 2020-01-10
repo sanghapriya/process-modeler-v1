@@ -64,7 +64,7 @@ export default function App () {
                    </Dropdown>
                    <Button variant="danger" onClick={(e)=>dispatch(onDelete())}>Delete</Button>
                    </ButtonToolbar>
-                   <svg width={window.innerWidth} height={window.innerHeight} 
+                   <svg  style={{"background":"#B3D9FF"}} width={window.innerWidth} height={window.innerHeight} 
                    onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}
                    onMouseUp={(e)=>dispatch(onDropElement(null,null,e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
