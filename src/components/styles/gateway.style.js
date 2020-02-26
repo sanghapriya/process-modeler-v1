@@ -1,22 +1,15 @@
 
 import styled from 'styled-components';
 
-export const GatewayStyle = styled.div`
-        width: 0;
-        height: 0;
-        border: 50px solid transparent;
-        border-bottom-color: red;
-        position: relative;
-        top: ${props => -props.y}px;
-      
-      &:after {
-        content: '';
+const GatewayStyle = styled.div`
+        width: ${props => props.width}px;
+        height: ${props => props.height}px;
         position: absolute;
-        left: ${props => -props.x}px;
-        top: ${props => props.y}px;
-        width: 0;
-        height: 0;
-        border: 50px solid transparent;
-        border-top-color: red;
-    }
+        border-style: solid;
+        left: ${props => props.x}px;
+        top:  ${props => props.y}px;
+        background: ${props => props.color};
+        transform: rotate(40deg);
       `;
+
+export default GatewayStyle;

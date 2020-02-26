@@ -2,6 +2,9 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {onGrabElement,onDropElement} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
+import ActivityStyle from './styles/activity.style';
+import EventStyle from './styles/event.style';
+import GatewayStyle from './styles/gateway.style'
 
 
   const getConnectionPoint = (x,y) => {             
@@ -23,80 +26,49 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                       case ACTIVITY:
                         var width = 100
                         var height = 100
-                        return <svg>
-                                
-                                  <rect x={left} y={top} 
+                        return  <ActivityStyle
+                                    x={left} 
+                                    y={top} 
                                     width={width} 
                                     height={height}
-                                    style={{"fill":color===null?"blue":color,
-                                          "stroke":"blue",
-                                          "cursor": "move",
-                                          "strokeWidth":"5",
-                                          "fillOpacity":"0.1"}}
-                                    draggable
+                                    color={color===null?"blue":color}
                                     onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
                                     onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}
                                      />
-                                {getConnectionPoint(left+width/2,top)}
-                                {getConnectionPoint(left,top+height/2)}
-                                {getConnectionPoint(left+width/2,top+height)}
-                                {getConnectionPoint(left+width,top+height/2)}
-                                </svg>;
+                                ;
 
                       case EVENT:
                         var radius = 50;
-                        return  <svg><circle cx={left}  cy={top}  
-                                        r={radius} 
-                                        style={{"fill":color===null?"blue":color,
-                                        "stroke":"blue",
-                                        "cursor": "move",
-                                        "strokeWidth":"5",
-                                        "fillOpacity":"0.1"}}
-                                        draggable
-                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
-                                        onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}
-                                        />
-                                        {getConnectionPoint(left-radius,top)}
-                                        {getConnectionPoint(left,top-radius)}
-                                        {getConnectionPoint(left+radius,top)}
-                                        {getConnectionPoint(left,top+radius)}
-                                        
-                                        
-                                        </svg>;
+                        return  <EventStyle 
+                                    cx={left}  
+                                    cy={top}  
+                                    r={radius} 
+                                    color={color===null?"blue":color}
+                                    onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                                    onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}
+                                    />;
                       
                       case GATEWAY:
-                        var width=100
-                        var height = 100
-                        var points = (left-width/2)+","+top+" "+left+","+(top+height/2)+" "+(left+width/2)+","+top+" "+left+","+(top-height/2);
-                        return <svg>
-                                <polygon points={points} 
+                        var width=50;
+                        var height = 50;
+                        return <GatewayStyle 
+                                          x = {left}
+                                          y = {top} 
                                           width={width} 
                                           height={height}
-                                          style={{"fill":color===null?"blue":color,
-                                                "stroke":"blue",
-                                                "cursor": "move",
-                                                "strokeWidth":"5",
-                                                "fillOpacity":"0.1"}}
-                                          draggable
+                                          color={color===null?"blue":color}
                                           onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
-                                          onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))} />
-                                          {getConnectionPoint(left-width/2,top)}
-                                        {getConnectionPoint(left,top-width/2)}
-                                        {getConnectionPoint(left+width/2,top)}
-                                        {getConnectionPoint(left,top+width/2)}
-                                          
-                                          </svg>;
+                                          onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))} />;
                       default:
 
-                              return <circle cx={top}  cy={left}  
-                                                        r="40" 
-                                                        style={{"fill":color===null?"blue":color,
-                                                        "stroke":"pink",
-                                                        "cursor": "move",
-                                                        "strokeWidth":"5",
-                                                        "fillOpacity":"0.1"}}
-                                                        draggable
-                                                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType,e))}/>;
+                        return  <EventStyle 
+                        cx={left}  
+                        cy={top}  
+                        r={radius} 
+                        color={color===null?"blue":color}
+                        onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
+                        onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}
+                        />;
 
 
 

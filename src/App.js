@@ -64,14 +64,22 @@ export default function App () {
                    </Dropdown>
                    <Button variant="danger" onClick={(e)=>dispatch(onDelete())}>Delete</Button>
                    </ButtonToolbar>
-                   <svg  style={{"background":"#B3D9FF"}} width={window.innerWidth} height={window.innerHeight} 
+                   <div  
+                   style={{"background":"#B3D9FF",
+                            "opacity": "0.5"
+                           }}
+                  
                    onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}
                    onMouseUp={(e)=>dispatch(onDropElement(null,null,e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
-                   {elements.map(obj => (obj))}
-                   {lines.map(obj => (obj))}
-                   {selectBox}
-                   </svg>
+                     
+                      {elements.map(obj => (obj))}
+                        <svg width= {window.innerWidth} height= {window.innerHeight}>
+                          {lines.map(obj => (obj))}
+                        </svg>
+                      {selectBox}
+                   
+                   </div>
 
                  </div>
               );;

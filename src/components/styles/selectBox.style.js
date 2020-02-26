@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ActivityStyle = styled.div`
+const SelectBoxStyle = styled.div`
 
 width: ${props => props.width}px;
 height: ${props => props.height}px;
@@ -8,7 +8,7 @@ position: absolute;
 border-style: solid;
 left: ${props => props.x}px;
 top:  ${props => props.y}px;
-background-color: ${props => props.color};
+background: "#044B94";
+fillOpacity:"0.2";
 `
-
-export default ActivityStyle;
+export default SelectBoxStyle;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const EventStyle = styled.div`
+const EventStyle = styled.div`
 
 position: absolute;
 border-style: solid;
@@ -12,3 +12,5 @@ height:${props => props.r}px;
 border-radius: 50%;
 display: inline-block;
 `;
+
+export default EventStyle;
