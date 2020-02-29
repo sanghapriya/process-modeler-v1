@@ -8,3 +8,8 @@ export const LINE_NEW = 'LINE_NEW';
 export const LINE_REFRESH = 'LINE_REFRESH';
 export const LINE_SELECTED_BOX = 'LINE_SELECTED';
 
+export const POINTER_TOP = 'POINTER_TOP';
+export const POINTER_LEFT = 'POINTER_LEFT';
+export const POINTER_RIGHT = 'POINTER_RIGHT';
+export const POINTER_BOTTOM = 'POINTER_BOTTOM';
+

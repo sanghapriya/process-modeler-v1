@@ -20,7 +20,7 @@ function toogleLineSelectedReducer(state = initialState,action) {
             />;
 
             return {
-                ...state
+                ...state,
                 latestLineId:state.latestLineId+1,
                 lines:[...state.lines,lines],
             };
