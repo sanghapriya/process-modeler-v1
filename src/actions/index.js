@@ -10,7 +10,10 @@ export const SELECT_ELEMENT = 'SELECT_ELEMENT'
 export const DELETE_ELEMENTS = 'DELETE_ELEMENTS'
 export const LINE_DRAG_START = 'LINE_DRAG_START'
 export const LINE_DRAG_END = 'LINE_DRAG_END'
-export const LINE_BEING_DRAGGED = 'LINE_BEING_DRAGGED'
+export const LINE_BEING_DRAGGED = 'LINE_BEING_DRAGGED';
+
+export const START_LINE_DRAW = 'START_LINE_DRAW';
+export const END_LINE_DRAW = 'END_LINE_DRAW';
 
 
 export function createElement(e,elementType) {
@@ -84,3 +87,18 @@ export function onDelete() {
 
   return {type: DELETE_ELEMENTS}
 }
+
+
+
+export function onStartLineDraw(e,id,elementType,pointerPosition) {
+
+  return {type: START_LINE_DRAW,e,id,elementType,pointerPosition}
+}
+
+
+export function onEndLineDraw(e,id,elementType,pointerPosition) {
+
+  return {type: END_LINE_DRAW,e,id,elementType,pointerPosition}
+}
+
+

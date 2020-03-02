@@ -1,13 +1,15 @@
-export default  function getLineDetail (lineId,elementDetails,startElementId,endElementId,clientX,clientY,color)  {    
-    
+
+export default  function getLineDetail (lineId,elementDetails,startElementId,endElementId,clientX,clientY,
+                                                                                color,elementType,pointerPosition)  {    
                                                                                         
     return  { 
         id:lineId, 
         startElementId:startElementId,
-
         endElementId:endElementId,
         x:clientX,
         y:clientY,
-        color:color
+        color:color,
+        elementType:elementType,
+        pointerPosition:pointerPosition
         }
     }

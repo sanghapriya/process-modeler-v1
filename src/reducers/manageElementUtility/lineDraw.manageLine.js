@@ -21,12 +21,12 @@ export default function lineDraw (state,action,lineOperation) {
     
 
     var latestLineId = state.latestLineId+1;
-    var line = getLine(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
-    var lineDetail = getLineDetail(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red");
+    var line = getLine(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red",action.elementType,action.poistionPosition);
+    var lineDetail = getLineDetail(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red",action.elementType,action.poistionPosition);
     
     return {
       ...state,
-      isDraw:true,
+      isLineDraw:true,
       latestLineId: latestLineId,
       lines: [...state.lines,line],
       lineDetails: [...state.lineDetails,lineDetail],
@@ -48,7 +48,9 @@ export default function lineDraw (state,action,lineOperation) {
                                                       state.lineDetails[index].endElementId,
                                                       action.e.clientX,
                                                       action.e.clientY,
-                                                      lineOperation === LINE_SELECTED_BOX?"green":"red"
+                                                      lineOperation === LINE_SELECTED_BOX?"green":"red",
+                                                      action.elementType,
+                                                      action.poistionPosition
                                                       ):line)),
 
             lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?
@@ -59,7 +61,9 @@ export default function lineDraw (state,action,lineOperation) {
                                                                         state.lineDetails[index].endElementId,
                                                                         action.e.clientX,
                                                                         action.e.clientY,
-                                                                        lineOperation === LINE_SELECTED_BOX?"green":"red" )
+                                                                        lineOperation === LINE_SELECTED_BOX?"green":"red",
+                                                                        action.elementType,
+                                                                        action.poistionPosition )
                                                                         :lineDetail))
                                                                         };
 
