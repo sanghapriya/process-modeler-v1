@@ -31,7 +31,11 @@ export default function elementDragged (state,action)  {
                                                       state.lineDetails[index].endElementId,
                                                       state.lineDetails[index].x,
                                                       state.lineDetails[index].y,
-                                                      state.lineDetails[index].color
+                                                      state.lineDetails[index].color,
+                                                      state.lineDetails[index].startElementType,
+                                                      state.lineDetails[index].startPointerPosition,
+                                                      state.lineDetails[index].endElementType,
+                                                      state.lineDetails[index].endPointerPosition
                                                       )),
 
               lineDetails:state.lineDetails.map((lineDetail,index) => 
@@ -42,7 +46,11 @@ export default function elementDragged (state,action)  {
                                                                                   state.lineDetails[index].endElementId,
                                                                                   state.lineDetails[index].x,
                                                                                   state.lineDetails[index].y,
-                                                                                  state.lineDetails[index].color  )),
+                                                                                  state.lineDetails[index].color,
+                                                                                  state.lineDetails[index].startElementType,
+                                                                                  state.lineDetails[index].startPointerPosition,
+                                                                                  state.lineDetails[index].endElementType,
+                                                                                  state.lineDetails[index].endPointerPosition  )),
                elements:state.elements
                               .map((element,index) => (index === id-1?
                                                       <GenericElement key = {id}

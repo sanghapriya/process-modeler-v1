@@ -44,7 +44,11 @@ const getColoredLine =(state,action,index,color) => {
                                         state.lineDetails[index].endElementId,
                                         state.lineDetails[index].x,
                                         state.lineDetails[index].y,
-                                        color
+                                        color,
+                                        state.lineDetails[index].startElementType,
+                                        state.lineDetails[index].startPointerPosition,
+                                        state.lineDetails[index].endElementType,
+                                        state.lineDetails[index].endPointerPosition
                                         )};
 
 const getColoredLineDetail =(lineDetail,elementDetails,color) => {
@@ -55,8 +59,12 @@ const getColoredLineDetail =(lineDetail,elementDetails,color) => {
                 lineDetail.endElementId,
                 lineDetail.x,
                 lineDetail.y,
-                color
-                )};
+                color,
+                lineDetail.startElementType,
+                lineDetail.startPointerPosition,
+                lineDetail.endElementType,
+                lineDetail.endPointerPosition
+)};
 
 
 

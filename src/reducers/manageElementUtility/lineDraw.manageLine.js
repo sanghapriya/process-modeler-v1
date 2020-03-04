@@ -1,7 +1,7 @@
 import React from 'react';
 import getLine from './getLineUtility.manageLine'
 import getLineDetail from './getLineDetail.manageLine'
-import {LINE_NEW,LINE_SELECTED_BOX,LINE_REFRESH} from '../../constants'
+import {LINE_NEW,LINE_SELECTED_BOX,LINE_END} from '../../constants'
 
 
 
@@ -17,6 +17,11 @@ export default function lineDraw (state,action,lineOperation) {
 
 
   if(lineOperation === LINE_NEW){
+
+    if(state.isLineDraw){
+
+      return state;
+    }
 
     
 
@@ -59,6 +64,59 @@ export default function lineDraw (state,action,lineOperation) {
 
   else{
 
+
+    if(lineOperation === LINE_END){
+
+      if(!state.isLineDraw){
+
+        return state;
+      }
+
+
+      var latestLineId = state.latestLineId;
+              var startElementId = state.lineDetails[latestLineId-1].startElementId;
+              var startElementType = state.lineDetails[latestLineId-1].startElementType;
+              var startPointerPosition = state.lineDetails[latestLineId-1].startPointerPosition;
+
+              var lineDrawn = getLine(latestLineId, 
+                                      state.elementDetails,
+                                      startElementId , 
+                                      action.id, 
+                                      null,
+                                      null,
+                                      "blue",
+                                      startElementType,
+                                      startPointerPosition,
+                                      action.elementType,
+                                      action.pointerPosition);
+
+              var lineDetailDrawn = getLineDetail(
+                                                  latestLineId, 
+                                                  state.elementDetails,
+                                                  startElementId, 
+                                                  action.id, 
+                                                  null, 
+                                                  null, 
+                                                  "blue",
+                                                  startElementType,
+                                                  startPointerPosition,
+                                                  action.elementType,
+                                                  action.pointerPosition);
+
+              return {
+              ...state,
+              isLineDraw:false,
+              lines:state.lines.map((line,index) => (index === state.latestLineId-1? lineDrawn:line)),
+              lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?lineDetailDrawn:lineDetail)),
+              }
+
+
+
+
+    }
+
+    else{
+
         return {
             ...state,
             latestLineId:state.latestLineId,
@@ -97,5 +155,7 @@ export default function lineDraw (state,action,lineOperation) {
                                                                     };
 
                                                                   }
+
+                                                                }
 
                                                               

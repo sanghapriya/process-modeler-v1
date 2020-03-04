@@ -8,7 +8,7 @@ import createElement from './manageElementUtility/createElement.manageElement';
 import selectElement from './manageElementUtility/selectElement.manageElement';
 import deleteElement from './manageElementUtility/deleteElement.manageElement';
 
-import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX,LINE_NEW,LINE_REFRESH} from '../constants';
+import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX,LINE_NEW,LINE_REFRESH,LINE_END} from '../constants';
 
 const initialState = {
                       menuOptionChosen:DRAG_SELECTED,
@@ -100,43 +100,8 @@ function manageElementReducer(state = initialState,action) {
 
             case END_LINE_DRAW:
 
+              return lineDraw(state,action,LINE_END);
               
-              var latestLineId = state.latestLineId;
-              var startElementId = state.lineDetails[latestLineId-1].startElementId;
-              var startElementType = state.lineDetails[latestLineId-1].startElementType;
-              var startPointerPosition = state.lineDetails[latestLineId-1].startPointerPosition;
-
-              var lineDrawn = getLine(latestLineId, 
-                                      state.elementDetails,
-                                      startElementId , 
-                                      action.id, 
-                                      null,
-                                      null,
-                                      "blue",
-                                      startElementType,
-                                      startPointerPosition,
-                                      action.elementType,
-                                      action.pointerPosition);
-
-              var lineDetailDrawn = getLineDetail(
-                                                  latestLineId, 
-                                                  state.elementDetails,
-                                                  startElementId, 
-                                                  action.id, 
-                                                  null, 
-                                                  null, 
-                                                  "blue",
-                                                  startElementType,
-                                                  startPointerPosition,
-                                                  action.elementType,
-                                                  action.pointerPosition);
-
-              return {
-              ...state,
-              isLineDraw:false,
-              lines:state.lines.map((line,index) => (index === state.latestLineId-1? lineDrawn:line)),
-              lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?lineDetailDrawn:lineDetail)),
-              }
           
 
               
@@ -173,7 +138,6 @@ function manageElementReducer(state = initialState,action) {
                     ...state,
                     isLineDraw:false,
                     lineDetails:state.lineDetails.filter((lineDetail,index) => !(state.latestLineId === lineDetail.id)),
-
                     lines:state.lines.filter((line,index) => !(state.latestLineId === state.lineDetails[index].id)),             
                 }
 
