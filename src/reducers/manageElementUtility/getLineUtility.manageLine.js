@@ -1,79 +1,108 @@
 import React from 'react';
 import GenericLine from '../../components/genericLine.component';
 
-const pointer_radius= 10;
+import {ACTIVITY,EVENT,GATEWAY,POINTER_BOTTOM,POINTER_LEFT,POINTER_RIGHT,POINTER_TOP} from '../../constants';
+
+import {getActivityPointerTopX,getActivityPointerTopY,
+    getActivityPointerLeftX,getActivityPointerLeftY,
+    getActivityPointerRightX,getActivityPointerRightY,
+    getActivityPointerBottomX,getActivityPointerBottomY
+  } from '../../utility';
+
+import {getEventPointerTopX,getEventPointerTopY,
+    getEventPointerLeftX,getEventPointerLeftY,
+    getEventPointerRightX,getEventPointerRightY,
+    getEventPointerBottomX,getEventPointerBottomY
+  } from '../../utility';
+
+import {getGatewayPointerTopX,getGatewayPointerTopY,
+    getGatewayPointerLeftX,getGatewayPointerLeftY,
+    getGatewayPointerRightX,getGatewayPointerRightY,
+    getGatewayPointerBottomX,getGatewayPointerBottomY
+  } from '../../utility';
+
+
 
 const getActivityPointerCoordinates = (left,top,pointerPosition) => {
 
-    var width = 100;
-    var height = 100;
-    if (pointerPosition === "POINTER_TOP"){
+    if (pointerPosition === POINTER_TOP){
 
-        return {cx:left-pointer_radius/2+(width/2),
-                cy:top-pointer_radius/2}
+        return {cx:getActivityPointerTopX(left),
+                cy:getActivityPointerTopY(top)}
 
     }
-    if (pointerPosition === "POINTER_LEFT"){
+    if (pointerPosition === POINTER_LEFT){
 
-        return {cx:left-2,
-                cy:top+height/2-pointer_radius/2}
+        return {cx:getActivityPointerLeftX(left),
+            cy:getActivityPointerLeftY(top)}
 
     }
-    if (pointerPosition === "POINTER_RIGHT"){
+    if (pointerPosition === POINTER_RIGHT){
 
-        return {cx:left+width-2,
-                cy:top+height/2-pointer_radius/2}
+        return {cx:getActivityPointerRightX(left),
+            cy:getActivityPointerRightY(top)}
 
     }
     else{
 
-        return {cx:left-pointer_radius/2+(width/2),
-            cy:top+height-pointer_radius/2}
+        return {cx:getActivityPointerBottomX(left),
+            cy:getActivityPointerBottomY(top)}
     }
 }
 
 
 const getEventPointerCoordinates = (left,top,pointerPosition) => {
-    var radius = 50;
+    if (pointerPosition === POINTER_TOP){
 
-    if (pointerPosition === "POINTER_TOP"){
-        return {cx:left-pointer_radius/2+(radius/2), 
-            cy:top-pointer_radius/2}
+        return {cx:getEventPointerTopX(left),
+                cy:getEventPointerTopY(top)}
+
     }
-    if (pointerPosition === "POINTER_LEFT"){
-        return {cx:left-2, 
-            cy:top+radius/2-pointer_radius/2}
+    if (pointerPosition === POINTER_LEFT){
+
+        return {cx:getEventPointerLeftX(left),
+            cy:getEventPointerLeftY(top)}
+
     }
-    if (pointerPosition === "POINTER_RIGHT"){
-        return {cx:left+radius-2, 
-            cy:top+radius/2-pointer_radius/2}
+    if (pointerPosition === POINTER_RIGHT){
+
+        return {cx:getEventPointerRightX(left),
+            cy:getEventPointerRightY(top)}
+
     }
     else{
-        return {cx:left-pointer_radius/2+(radius/2), 
-            cy:top+radius-pointer_radius/2}
+
+        return {cx:getEventPointerBottomX(left),
+            cy:getEventPointerBottomY(top)}
     }
 }
 
 
 const getGatewayPointerCoordinates = (left,top,pointerPosition) => {
+    if (pointerPosition ===POINTER_TOP){
+        console.log(getGatewayPointerTopX(left)+" "+getGatewayPointerTopY(top))
+        return {cx:getGatewayPointerTopX(left),
+                cy:getGatewayPointerTopY(top)}
 
-    
+            
 
-    var width=50;
-    var height = 50;
-
-    if (pointerPosition === "POINTER_TOP"){
-        return {cx:left+(width/2)-pointer_radius/2, 
-            cy:top-pointer_radius}
     }
-    if (pointerPosition === "POINTER_LEFT"){
-        return {cx:left-7, cy:top+height/2}
+    if (pointerPosition === POINTER_LEFT){
+
+        return {cx:getGatewayPointerLeftX(left),
+            cy:getGatewayPointerLeftY(top)}
+
     }
-    if (pointerPosition === "POINTER_RIGHT"){
-        return {cx:left+width+5, cy:top+height/2-5}
+    if (pointerPosition === POINTER_RIGHT){
+
+        return {cx:getGatewayPointerRightX(left),
+            cy:getGatewayPointerRightY(top)}
+
     }
     else{
-        return {cx:left+(width/2), cy:top+height}
+
+        return {cx:getGatewayPointerBottomX(left),
+            cy:getGatewayPointerBottomY(top)}
     }
 }
 
@@ -83,11 +112,11 @@ const getElementPointerCoordinates = (elementType,left,top,pointerPosition) => {
     console.log(elementType)
 
 
-    if (elementType === "ACTIVITY") {
+    if (elementType === ACTIVITY) {
 
         return getActivityPointerCoordinates(left,top,pointerPosition)
     }
-    if (elementType === "EVENT") {
+    if (elementType === EVENT) {
 
         return getEventPointerCoordinates(left,top,pointerPosition)
     }
@@ -102,7 +131,7 @@ const getElementPointerCoordinates = (elementType,left,top,pointerPosition) => {
 export default function getLine (lineId,elementDetails,startElementId,endElementId,clientX,clientY,color,
                                     startElementType,startPointerPosition,endElementType,endPointerPosition) {
 
-                                        console.log(startPointerPosition);
+                                        
 
 
             var startElementCoordinate = getElementPointerCoordinates(

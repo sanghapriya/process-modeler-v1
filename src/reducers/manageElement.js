@@ -2,8 +2,6 @@ import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,
   ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT,DELETE_ELEMENTS,START_LINE_DRAW,END_LINE_DRAW} from '../actions';
 import elementDragged from './manageElementUtility/elementDragged.manageLine';
 import lineDraw from './manageElementUtility/lineDraw.manageLine';
-import getLine from './manageElementUtility/getLineUtility.manageLine';
-import getLineDetail from './manageElementUtility/getLineDetail.manageLine';
 import createElement from './manageElementUtility/createElement.manageElement';
 import selectElement from './manageElementUtility/selectElement.manageElement';
 import deleteElement from './manageElementUtility/deleteElement.manageElement';
@@ -138,7 +136,8 @@ function manageElementReducer(state = initialState,action) {
                     ...state,
                     isLineDraw:false,
                     lineDetails:state.lineDetails.filter((lineDetail,index) => !(state.latestLineId === lineDetail.id)),
-                    lines:state.lines.filter((line,index) => !(state.latestLineId === state.lineDetails[index].id)),             
+                    lines:state.lines.filter((line,index) => !(state.latestLineId === state.lineDetails[index].id)),  
+                    latestLineId: state.latestLineId-1         
                 }
 
                   }
