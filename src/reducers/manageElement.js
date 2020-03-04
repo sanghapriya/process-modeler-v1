@@ -74,7 +74,7 @@ function manageElementReducer(state = initialState,action) {
              case ON_MOVE_ELEMENT:
                     action.e.persist()
 
-                    if(state.menuOptionChosen === LINE_SELECTED & state.isDraw) {
+                    if(state.isLineDraw) {
                       
                          return lineDraw(state,action,LINE_REFRESH);
                     }
@@ -102,11 +102,34 @@ function manageElementReducer(state = initialState,action) {
 
               
               var latestLineId = state.latestLineId;
-              var startElementId = state.lineDetails[latestLineId-1].startElementId
-              var lineDrawn = getLine(latestLineId, state.elementDetails,startElementId , action.id, null, null, "blue",action.elementType,
-              action.poistionPosition);
-              var lineDetailDrawn = getLineDetail(latestLineId, state.elementDetails,startElementId, action.id, null, null, "blue",action.elementType,
-              action.poistionPosition);
+              var startElementId = state.lineDetails[latestLineId-1].startElementId;
+              var startElementType = state.lineDetails[latestLineId-1].startElementType;
+              var startPointerPosition = state.lineDetails[latestLineId-1].startPointerPosition;
+
+              var lineDrawn = getLine(latestLineId, 
+                                      state.elementDetails,
+                                      startElementId , 
+                                      action.id, 
+                                      null,
+                                      null,
+                                      "blue",
+                                      startElementType,
+                                      startPointerPosition,
+                                      action.elementType,
+                                      action.pointerPosition);
+
+              var lineDetailDrawn = getLineDetail(
+                                                  latestLineId, 
+                                                  state.elementDetails,
+                                                  startElementId, 
+                                                  action.id, 
+                                                  null, 
+                                                  null, 
+                                                  "blue",
+                                                  startElementType,
+                                                  startPointerPosition,
+                                                  action.elementType,
+                                                  action.pointerPosition);
 
               return {
               ...state,
@@ -119,11 +142,6 @@ function manageElementReducer(state = initialState,action) {
               
                               
             case ON_GRAB_ELEMENT:
-
-
-                // action.e.persist();
-
-                console.log("Grabbed");
 
               if(state.menuOptionChosen === SELECT_ELEMENT){
                     return selectElement(state,action,START_SELECT_BOX);
@@ -147,48 +165,24 @@ function manageElementReducer(state = initialState,action) {
                     }
             }
  
-            case ON_DROP_ELEMENT:
-              // action.e.persist();
-              // console.log("Dropped")
-              // console.log(state)
-              
+            case ON_DROP_ELEMENT:            
               
               if(state.isLineDraw)
               {
-
-                /* Need to delete the latest line */
-                if(action.id === null){
-
                   return {
                     ...state,
-                    isDraw:false,
-                    } 
+                    isLineDraw:false,
+                    lineDetails:state.lineDetails.filter((lineDetail,index) => !(state.latestLineId === lineDetail.id)),
 
-                  }
-                else {
-                      var latestLineId = state.latestLineId;
-                      var startElementId = state.lineDetails[latestLineId-1].startElementId
-                      var lineDrawn = getLine(latestLineId, state.elementDetails,startElementId , action.id, null, null, "blue");
-                      var lineDetailDrawn = getLineDetail(latestLineId, state.elementDetails,startElementId, action.id, null, null, "blue");
+                    lines:state.lines.filter((line,index) => !(state.latestLineId === state.lineDetails[index].id)),             
+                }
 
-                      return {
-                      ...state,
-                      isDraw:false,
-                      lines:state.lines.map((line,index) => (index === state.latestLineId-1? lineDrawn:line)),
-                      lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?lineDetailDrawn:lineDetail)),
-                      }
-                
-
-                    }
                   }
               else{
 
                 if(state.menuOptionChosen === SELECT_ELEMENT & state.isDraw ){
 
-                  // console.log("Select Element dropped")
-
                   return selectElement(state,action,END_SELECT_BOX);
-
 
                 }
 

@@ -102,8 +102,8 @@ import PointerStyle from './styles/pointer.style';
                                             onMouseUp={(e)=>dispatch(onEndLineDraw(e,id,elementType,POINTER_RIGHT))} />
                                   
                                   <PointerStyle cx={left+(width/2)}   cy={top+height} r={pointer_radius} color ={"green"}
-                                            onMouseDown={(e)=>dispatch(onStartLineDraw(e,id,elementType,POINTER_TOP))}
-                                            onMouseUp={(e)=>dispatch(onEndLineDraw(e,id,elementType,POINTER_TOP))} />
+                                            onMouseDown={(e)=>dispatch(onStartLineDraw(e,id,elementType,POINTER_BOTTOM))}
+                                            onMouseUp={(e)=>dispatch(onEndLineDraw(e,id,elementType,POINTER_BOTTOM))} />
                                   </div>;
                       default:
 

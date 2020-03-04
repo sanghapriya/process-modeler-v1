@@ -13,7 +13,7 @@ const getConnectionPoint = (x,y) => {
             />}
 
 export default function GenericLine (props)  {
-    console.log(props);
+    
     
       return(
         

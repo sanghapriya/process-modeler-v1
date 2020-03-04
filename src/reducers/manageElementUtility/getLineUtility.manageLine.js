@@ -15,8 +15,8 @@ const getActivityPointerCoordinates = (left,top,pointerPosition) => {
     }
     if (pointerPosition === "POINTER_LEFT"){
 
-        return {cx:left-pointer_radius/2+(width/2),
-                cy:top-pointer_radius/2}
+        return {cx:left-2,
+                cy:top+height/2-pointer_radius/2}
 
     }
     if (pointerPosition === "POINTER_RIGHT"){
@@ -37,27 +37,34 @@ const getEventPointerCoordinates = (left,top,pointerPosition) => {
     var radius = 50;
 
     if (pointerPosition === "POINTER_TOP"){
-        return {cx:left-pointer_radius/2+(radius/2), cy:top-pointer_radius/2}
+        return {cx:left-pointer_radius/2+(radius/2), 
+            cy:top-pointer_radius/2}
     }
     if (pointerPosition === "POINTER_LEFT"){
-        return {cx:left-2, cy:top+radius/2-pointer_radius/2}
+        return {cx:left-2, 
+            cy:top+radius/2-pointer_radius/2}
     }
     if (pointerPosition === "POINTER_RIGHT"){
-        return {cx:left+radius-2, cy:top+radius/2-pointer_radius/2}
+        return {cx:left+radius-2, 
+            cy:top+radius/2-pointer_radius/2}
     }
     else{
-        return {cx:left-pointer_radius/2+(radius/2), cy:top+radius-pointer_radius/2}
+        return {cx:left-pointer_radius/2+(radius/2), 
+            cy:top+radius-pointer_radius/2}
     }
 }
 
 
 const getGatewayPointerCoordinates = (left,top,pointerPosition) => {
 
+    
+
     var width=50;
     var height = 50;
 
     if (pointerPosition === "POINTER_TOP"){
-        return {cx:left+(width/2)-pointer_radius/2, cy:top-pointer_radius}
+        return {cx:left+(width/2)-pointer_radius/2, 
+            cy:top-pointer_radius}
     }
     if (pointerPosition === "POINTER_LEFT"){
         return {cx:left-7, cy:top+height/2}
@@ -72,6 +79,8 @@ const getGatewayPointerCoordinates = (left,top,pointerPosition) => {
 
 
 const getElementPointerCoordinates = (elementType,left,top,pointerPosition) => {
+
+    console.log(elementType)
 
 
     if (elementType === "ACTIVITY") {
@@ -90,21 +99,32 @@ const getElementPointerCoordinates = (elementType,left,top,pointerPosition) => {
 
 }
 
-export default function getLine (lineId,elementDetails,startElementId,endElementId,clientX,clientY,color,elementType,pointerPosition) {
+export default function getLine (lineId,elementDetails,startElementId,endElementId,clientX,clientY,color,
+                                    startElementType,startPointerPosition,endElementType,endPointerPosition) {
 
-            var coordinate = getElementPointerCoordinates(
-                                                    elementType,
+                                        console.log(startPointerPosition);
+
+
+            var startElementCoordinate = getElementPointerCoordinates(
+                                                    startElementType,
                                                     elementDetails[startElementId-1].left,
                                                     elementDetails[startElementId-1].top,
-                                                    pointerPosition
-                                                    )
+                                                    startPointerPosition
+                                                    );
+            var endElementCoordinate = (endElementId === null?null:getElementPointerCoordinates(
+                                                                                    endElementType,
+                                                                                    elementDetails[endElementId-1].left,
+                                                                                    elementDetails[endElementId-1].top,
+                                                                                    endPointerPosition
+                                                                                    ));
+                                                
 
             return  <GenericLine key={lineId}
                         color= {color}
-                        x1={coordinate.cx} 
-                        x2 = {(endElementId === null?clientX:elementDetails[endElementId-1].left)} 
-                        y1 = {coordinate.cy} 
-                        y2={(endElementId === null?clientY:elementDetails[endElementId-1].top)} />
+                        x1={startElementCoordinate.cx} 
+                        x2 = {(endElementId === null?clientX:endElementCoordinate.cx)} 
+                        y1 = {startElementCoordinate.cy} 
+                        y2={(endElementId === null?clientY:endElementCoordinate.cy)} />
 
 };
 

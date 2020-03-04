@@ -7,7 +7,7 @@ import {LINE_NEW,LINE_SELECTED_BOX,LINE_REFRESH} from '../../constants'
 
 export default function lineDraw (state,action,lineOperation) {
 
-  // console.log(state);
+  
 
   if(state.latestElementId === 0 | typeof(action.e) === undefined ){
 
@@ -21,8 +21,30 @@ export default function lineDraw (state,action,lineOperation) {
     
 
     var latestLineId = state.latestLineId+1;
-    var line = getLine(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red",action.elementType,action.poistionPosition);
-    var lineDetail = getLineDetail(latestLineId, state.elementDetails, action.id, null, action.e.clientX, action.e.clientY, "red",action.elementType,action.poistionPosition);
+    var line = getLine(
+                      latestLineId, 
+                      state.elementDetails, 
+                      action.id, 
+                      null, 
+                      action.e.clientX, 
+                      action.e.clientY, 
+                      "red",
+                      action.elementType,
+                      action.pointerPosition,
+                      null,
+                      null);
+    var lineDetail = getLineDetail(                      
+                                  latestLineId, 
+                                  state.elementDetails, 
+                                  action.id, 
+                                  null, 
+                                  action.e.clientX, 
+                                  action.e.clientY, 
+                                  "red",
+                                  action.elementType,
+                                  action.pointerPosition,
+                                  null,
+                                  null);
     
     return {
       ...state,
@@ -49,8 +71,10 @@ export default function lineDraw (state,action,lineOperation) {
                                                       action.e.clientX,
                                                       action.e.clientY,
                                                       lineOperation === LINE_SELECTED_BOX?"green":"red",
-                                                      action.elementType,
-                                                      action.poistionPosition
+                                                      state.lineDetails[index].startElementType,
+                                                      state.lineDetails[index].startPointerPosition,
+                                                      state.lineDetails[index].endElementType,
+                                                      state.lineDetails[index].endPointerPosition
                                                       ):line)),
 
             lineDetails:state.lineDetails.map((lineDetail,index) => (index === state.latestLineId-1?
@@ -62,8 +86,11 @@ export default function lineDraw (state,action,lineOperation) {
                                                                         action.e.clientX,
                                                                         action.e.clientY,
                                                                         lineOperation === LINE_SELECTED_BOX?"green":"red",
-                                                                        action.elementType,
-                                                                        action.poistionPosition )
+                                                                        state.lineDetails[index].startElementType,
+                                                                        state.lineDetails[index].startPointerPosition,
+                                                                        state.lineDetails[index].endElementType,
+                                                                        state.lineDetails[index].endPointerPosition
+                                                                        )
                                                                         :lineDetail))
                                                                         };
 
