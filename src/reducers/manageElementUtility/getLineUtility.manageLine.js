@@ -28,25 +28,25 @@ const getActivityPointerCoordinates = (left,top,pointerPosition) => {
     if (pointerPosition === POINTER_TOP){
 
         return {cx:getActivityPointerTopX(left),
-                cy:getActivityPointerTopY(top)}
+                cy:getActivityPointerTopY(top)-25}
 
     }
     if (pointerPosition === POINTER_LEFT){
 
         return {cx:getActivityPointerLeftX(left),
-            cy:getActivityPointerLeftY(top)}
+            cy:getActivityPointerLeftY(top)-25}
 
     }
     if (pointerPosition === POINTER_RIGHT){
 
         return {cx:getActivityPointerRightX(left),
-            cy:getActivityPointerRightY(top)}
+            cy:getActivityPointerRightY(top)-25}
 
     }
     else{
 
         return {cx:getActivityPointerBottomX(left),
-            cy:getActivityPointerBottomY(top)}
+            cy:getActivityPointerBottomY(top)-25}
     }
 }
 
@@ -55,25 +55,25 @@ const getEventPointerCoordinates = (left,top,pointerPosition) => {
     if (pointerPosition === POINTER_TOP){
 
         return {cx:getEventPointerTopX(left),
-                cy:getEventPointerTopY(top)}
+                cy:getEventPointerTopY(top)-25}
 
     }
     if (pointerPosition === POINTER_LEFT){
 
         return {cx:getEventPointerLeftX(left),
-            cy:getEventPointerLeftY(top)}
+            cy:getEventPointerLeftY(top)-25}
 
     }
     if (pointerPosition === POINTER_RIGHT){
 
         return {cx:getEventPointerRightX(left),
-            cy:getEventPointerRightY(top)}
+            cy:getEventPointerRightY(top)-25}
 
     }
     else{
 
         return {cx:getEventPointerBottomX(left),
-            cy:getEventPointerBottomY(top)}
+            cy:getEventPointerBottomY(top)-25}
     }
 }
 
@@ -82,7 +82,7 @@ const getGatewayPointerCoordinates = (left,top,pointerPosition) => {
     if (pointerPosition ===POINTER_TOP){
         console.log(getGatewayPointerTopX(left)+" "+getGatewayPointerTopY(top))
         return {cx:getGatewayPointerTopX(left),
-                cy:getGatewayPointerTopY(top)}
+                cy:getGatewayPointerTopY(top)-25}
 
             
 
@@ -90,19 +90,19 @@ const getGatewayPointerCoordinates = (left,top,pointerPosition) => {
     if (pointerPosition === POINTER_LEFT){
 
         return {cx:getGatewayPointerLeftX(left),
-            cy:getGatewayPointerLeftY(top)}
+            cy:getGatewayPointerLeftY(top)-25}
 
     }
     if (pointerPosition === POINTER_RIGHT){
 
         return {cx:getGatewayPointerRightX(left),
-            cy:getGatewayPointerRightY(top)}
+            cy:getGatewayPointerRightY(top)-25}
 
     }
     else{
 
         return {cx:getGatewayPointerBottomX(left),
-            cy:getGatewayPointerBottomY(top)}
+            cy:getGatewayPointerBottomY(top)-25}
     }
 }
 
