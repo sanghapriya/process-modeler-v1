@@ -15,6 +15,8 @@ export const LINE_BEING_DRAGGED = 'LINE_BEING_DRAGGED';
 export const START_LINE_DRAW = 'START_LINE_DRAW';
 export const END_LINE_DRAW = 'END_LINE_DRAW';
 
+export const OPEN_ELEMENT_PROPERTY = 'OPEN_ELEMENT_PROPERTY';
+
 
 export function createElement(e,elementType) {
   return { type: CREATE, e ,elementType}
@@ -101,4 +103,8 @@ export function onEndLineDraw(e,id,elementType,pointerPosition) {
   return {type: END_LINE_DRAW,e,id,elementType,pointerPosition}
 }
 
+export function getPropertyBox(id,elementType) {
+
+  return {type: OPEN_ELEMENT_PROPERTY,id,elementType}
+}
 

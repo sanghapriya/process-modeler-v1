@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {onGrabElement,onDropElement,onStartLineDraw,onEndLineDraw} from '../actions';
+
+import {onGrabElement,onDropElement,onStartLineDraw,onEndLineDraw,getPropertyBox} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY,POINTER_BOTTOM,POINTER_LEFT,POINTER_RIGHT,POINTER_TOP} from '../constants';
 import {getActivityPointerTopX,getActivityPointerTopY,
         getActivityPointerLeftX,getActivityPointerLeftY,
@@ -45,6 +46,7 @@ import PointerStyle from './styles/pointer.style';
                                             width={width} 
                                             height={height}
                                             color={color===null?"blue":color}
+                                            onClick={()=>dispatch(getPropertyBox(id,elementType))}
                                             onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
                                             onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}/>
                                   

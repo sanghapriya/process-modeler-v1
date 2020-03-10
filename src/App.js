@@ -39,6 +39,7 @@ export default function App () {
   const lines = useSelector(state => state.manageElement.lines);
   const menuOptionChosen = useSelector(state => state.manageElement.menuOptionChosen);
   const selectBox = useSelector(state => state.manageElement.selectBox);
+  const propertyBox = useSelector(state => state.manageElement.propertyBox);
 
 
 
@@ -73,11 +74,13 @@ export default function App () {
                    onMouseUp={(e)=>dispatch(onDropElement(null,null,e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
                      
+                     {propertyBox}
                       {elements.map(obj => (obj))}
                         <svg width= {window.innerWidth} height= {window.innerHeight}>
                           {lines.map(obj => (obj))}
                         </svg>
                       {selectBox}
+                      
                    
                    </div>
 

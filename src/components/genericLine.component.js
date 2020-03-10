@@ -19,6 +19,7 @@ export default function GenericLine (props)  {
         
            
             <line 
+            onClick = {()=>{alert("Yo!")}}
             x1={props.x1} 
             y1={props.y1} 
             x2={props.x2} 

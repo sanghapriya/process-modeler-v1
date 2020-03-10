@@ -150,6 +150,7 @@ export default function getLine (lineId,elementDetails,startElementId,endElement
 
             return  <GenericLine key={lineId}
                         color= {color}
+                        
                         x1={startElementCoordinate.cx} 
                         x2 = {(endElementId === null?clientX:endElementCoordinate.cx)} 
                         y1 = {startElementCoordinate.cy} 
