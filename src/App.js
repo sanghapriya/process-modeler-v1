@@ -39,6 +39,7 @@ export default function App () {
   const lines = useSelector(state => state.manageElement.lines);
   const menuOptionChosen = useSelector(state => state.manageElement.menuOptionChosen);
   const selectBox = useSelector(state => state.manageElement.selectBox);
+  const propertyBox = useSelector(state => state.manageElement.propertyBox);
 
 
 
@@ -64,13 +65,16 @@ export default function App () {
                    </Dropdown>
                    <Button variant="danger" onClick={(e)=>dispatch(onDelete())}>Delete</Button>
                    </ButtonToolbar>
+                   {propertyBox}
                    <svg  style={{"background":"#B3D9FF"}} width={window.innerWidth} height={window.innerHeight} 
                    onMouseDown={(e)=>dispatch(onGrabElement(e,null,null))}
                    onMouseUp={(e)=>dispatch(onDropElement(null,null,e))}
                    onMouseMove = {(e)=>dispatch(onMoveElement(e))}>
+                     
                    {elements.map(obj => (obj))}
                    {lines.map(obj => (obj))}
                    {selectBox}
+                   
                    </svg>
 
                  </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {onGrabElement,onDropElement} from '../actions';
+import {onGrabElement,onDropElement,getPropertyBox} from '../actions';
 import {ACTIVITY,EVENT,GATEWAY} from '../constants';
 
 
@@ -34,6 +34,7 @@ import {ACTIVITY,EVENT,GATEWAY} from '../constants';
                                           "strokeWidth":"5",
                                           "fillOpacity":"0.1"}}
                                     draggable
+                                    onDoubleClick={()=>dispatch(getPropertyBox(id,elementType))}
                                     onMouseDown={(e)=>dispatch(onGrabElement(e,id,elementType))}
                                     onMouseUp={(e)=>dispatch(onDropElement(id,elementType,e))}
                                      />

@@ -1,5 +1,5 @@
 import {CREATE,ON_GRAB_ELEMENT,ON_MOVE_ELEMENT,
-  ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT,DELETE_ELEMENTS} from '../actions';
+  ON_DROP_ELEMENT,LINE_SELECTED,DRAG_SELECTED,SELECT_ELEMENT,DELETE_ELEMENTS,OPEN_ELEMENT_PROPERTY} from '../actions';
 import elementDragged from './manageElementUtility/elementDragged.manageLine';
 import lineDraw from './manageElementUtility/lineDraw.manageLine';
 import getLine from './manageElementUtility/getLineUtility.manageLine';
@@ -7,6 +7,7 @@ import getLineDetail from './manageElementUtility/getLineDetail.manageLine';
 import createElement from './manageElementUtility/createElement.manageElement';
 import selectElement from './manageElementUtility/selectElement.manageElement';
 import deleteElement from './manageElementUtility/deleteElement.manageElement';
+import propertyBox from './manageElementUtility/propertyBox';
 
 import {START_SELECT_BOX,DRAG_SELECT_BOX,END_SELECT_BOX,LINE_NEW,LINE_REFRESH} from '../constants';
 
@@ -196,6 +197,9 @@ function manageElementReducer(state = initialState,action) {
                     }
 
                 }
+          case OPEN_ELEMENT_PROPERTY:
+
+                  return propertyBox(state,action);
           default:
                     return state;
       }
